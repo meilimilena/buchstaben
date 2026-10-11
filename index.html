@@ -239,8 +239,6 @@ div.zan{cursor:default}
 .zsprite i{display:block;font-style:normal;animation:zstep .5s ease-in-out infinite}
 .zdone{text-align:center;color:var(--muted);font-size:15px;margin:16px 0 0}
 .pz.happy .pza,.pz.happy .pze{animation:zjoy 1.3s ease-in-out infinite}
-.zpic{display:block;width:calc(var(--mw)*.125);height:calc(var(--mw)*.125);object-fit:contain}
-.zsprite .zpic{width:100%;height:100%}
 @keyframes zwander{0%,100%{transform:translate(0,0)}22%{transform:translate(var(--wa),calc(var(--wa)*-.3))}48%{transform:translate(calc(var(--wa)*-.9),calc(var(--wa)*.2))}74%{transform:translate(calc(var(--wa)*.35),calc(var(--wa)*.35))}}
 @keyframes zbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 @keyframes zhop{0%,55%,100%{transform:translateY(0)}25%{transform:translateY(-10px)}40%{transform:translateY(0)}}
@@ -284,15 +282,8 @@ div.zan{cursor:default}
 .actions .blk.full{grid-column:1/-1}
 /* Startbildschirm: zwei grosse Kacheln */
 .rbig{font-size:84px;line-height:1;margin:14px 0 18px;animation:zjoy 1.3s ease-in-out infinite}
-/* Zahlen: Mengen */
-.qty{--cell:min(15.5vw,60px);display:grid;grid-template-columns:repeat(var(--c,5),var(--cell));gap:6px;justify-content:center}
-.qty.r3{--cell:min(13.5vw,54px)}
-.qty.r4{--cell:min(12vw,48px)}
-.qo{position:relative;aspect-ratio:1/1;display:grid;place-items:center;padding:0;font-size:calc(var(--cell)*.68);line-height:1;background:#fff;border:2px solid var(--b200);border-radius:10px;box-shadow:0 3px 0 var(--b200);cursor:pointer}
-.qo.cnt{border-color:var(--a500);background:#FFF6D8}
-.qo.cnt::after{content:attr(data-c);position:absolute;right:-4px;top:-8px;min-width:19px;height:19px;padding:0 4px;display:grid;place-items:center;background:var(--b600);color:#fff;border-radius:10px;font-size:12px;font-weight:900}
 .opts.nums .opt{font-size:clamp(40px,16vw,76px);letter-spacing:-.04em}
-/* Zahlen: Was ist grösser? */
+/* Zahlen: Sortieren */
 .oarea{flex:1;display:flex;flex-direction:column;justify-content:center;gap:18px;padding:6px 0 18px}
 .oslots,.otiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .oslot{aspect-ratio:1/1.05;display:grid;place-items:center;border:3px dashed var(--b300);border-radius:var(--r2);background:rgba(255,255,255,.55)}
@@ -302,9 +293,18 @@ div.zan{cursor:default}
 .olabel{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:16px}
 .oarrow{position:relative;flex:1;max-width:130px;height:4px;background:var(--b300);border-radius:2px}
 .oarrow::after{content:"";position:absolute;right:-3px;top:-6px;border-left:12px solid var(--b300);border-top:8px solid transparent;border-bottom:8px solid transparent}
-.otile{aspect-ratio:1/1.05;display:grid;place-items:center;padding:0;font-size:clamp(40px,16vw,76px);letter-spacing:-.04em;border-radius:var(--r2);font-weight:900}
+.otile{touch-action:none;cursor:grab;aspect-ratio:1/1.05;display:grid;place-items:center;padding:0;font-size:clamp(40px,16vw,76px);letter-spacing:-.04em;border-radius:var(--r2);font-weight:900}
 .otile.gone{visibility:hidden;box-shadow:none}
-.otile.shake{animation:shake .4s}
+.otile.drag{opacity:.3}
+.oslot.over{border-color:var(--b600);background:var(--b100)}
+.oslot.on.over{box-shadow:0 0 0 4px var(--b300);border-radius:var(--r2)}
+.otiles.over{outline:3px dashed var(--b300);outline-offset:8px;border-radius:var(--r2)}
+.oslot .otile{width:100%;height:100%;aspect-ratio:auto}
+.oslot.good .otile{--bg:var(--t600);--shade:var(--t700);--fg:#fff}
+.oslot.bad{animation:shake .5s}
+.otile.static{cursor:default;touch-action:auto}
+.olabel.good{color:var(--t700);font-weight:900;font-size:18px}
+.btx small{display:block;margin-top:3px;font-size:15px;font-weight:700;opacity:.8;letter-spacing:0}
 /* Startbildschirm: grosse Kacheln untereinander, Elternbereich mit Tabs */
 .result{position:relative}
 .rgear{position:absolute;right:0;top:0}
@@ -317,7 +317,10 @@ div.zan{cursor:default}
 .ptab[data-t=numbers].on{background:var(--a500);color:var(--ink)}
 .pbody{padding:4px 16px 16px}
 .pbody p{margin-top:12px}
-.pstat{color:var(--ink)!important;font-size:17px!important;line-height:1.6!important}
+.pstat{color:var(--ink)!important;font-size:17px!important;line-height:1.5!important}
+.pg{display:block;margin-top:12px;font-size:18px}
+.pg:first-child{margin-top:0}
+.pl{display:block;margin-left:2px;font-size:15px;color:var(--muted);font-weight:700}
 .sheet details{margin-top:14px}
 .sheet summary{cursor:pointer;font-weight:800;font-size:15px;color:var(--b600);padding:6px 0}
 .sheet details[open] summary{margin-bottom:4px}
@@ -342,9 +345,67 @@ div.zan{cursor:default}
   text-shadow:-2px -2px 0 #fff,2px -2px 0 #fff,-2px 2px 0 #fff,2px 2px 0 #fff,4px 4px 0 #1B2A6B}
 .wt-n .wname{transform:rotate(2deg)}
 @keyframes wbob{0%,100%{translate:0 0}50%{translate:0 -6px}}
+/* Würfeln */
+.dplay{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;min-height:250px;margin-bottom:14px;cursor:pointer;-webkit-user-select:none;user-select:none;--ds:min(30vw,128px);
+  background:#DFF3EE;border:3px solid #8FD0C8;border-radius:20px;box-shadow:inset 0 6px 0 rgba(15,143,135,.12);overflow:hidden}
+.dplay.n2{--ds:min(29vw,112px)}
+.dplay.n3{--ds:min(26vw,96px)}
+.drow{display:flex;gap:calc(var(--ds)*.18);justify-content:center}
+.die{position:relative;width:var(--ds);height:var(--ds);background:#D92D2D;border:3px solid #A51D1D;border-radius:calc(var(--ds)*.2);
+  box-shadow:0 calc(var(--ds)*.07) 0 #7E1414,inset 0 calc(var(--ds)*.05) 0 rgba(255,255,255,.28);
+  display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);padding:calc(var(--ds)*.1)}
+.pip{place-self:center;width:calc(var(--ds)*.2);height:calc(var(--ds)*.2);border-radius:50%;background:#fff}
+.pip.on{background:#FFD84D;box-shadow:0 0 0 calc(var(--ds)*.04) rgba(255,216,77,.55)}
+.die .q{grid-area:1/1/4/4;place-self:center;font-size:calc(var(--ds)*.62);font-weight:900;color:rgba(255,255,255,.6);line-height:1}
+.die.mini{--ds:30px;border-width:2px;margin-right:-4px}
+.dplay.rolling .die{animation:dthrow 1.3s ease-in-out both;animation-delay:var(--dd)}
+@keyframes dthrow{
+  0%{transform:translate(var(--dx),-200px) rotate(0deg) scale(1.2)}
+  24%{transform:translate(calc(var(--dx)*.35),0) rotate(calc(var(--rs)*260deg)) scale(1)}
+  38%{transform:translate(calc(var(--dx)*.1),-80px) rotate(calc(var(--rs)*400deg)) scale(1.06)}
+  52%{transform:translate(0,0) rotate(calc(var(--rs)*520deg)) scale(1)}
+  64%{transform:translate(0,-34px) rotate(calc(var(--rs)*620deg))}
+  76%{transform:translate(0,0) rotate(calc(var(--rs)*690deg))}
+  86%{transform:translate(0,-10px) rotate(calc(var(--rs)*715deg))}
+  100%{transform:translate(0,0) rotate(calc(var(--rs)*720deg))}
+}
+.dhint{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:900;color:var(--t700)}
+.dhand{display:inline-block;font-size:34px;animation:dpoke 1.1s ease-in-out infinite}
+@keyframes dpoke{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.dsay{display:flex;justify-content:center;margin:0 0 12px}
+.dsay.hide,.opts.hide{visibility:hidden}
+.dcard{position:relative}
+.big .ic.dic{display:flex;align-items:center;width:auto;min-width:58px;padding:0 10px;gap:2px}
+.dtext{display:flex;flex-direction:column;gap:3px;min-width:0}
+.ddots{display:flex;gap:4px;margin-top:6px}
+.dd{display:block;width:11px;height:11px;border-radius:50%;background:rgba(255,255,255,.55)}
+.dd.ok{background:var(--t600)}
+.dd.no{background:#C0392B}
+.dbar{display:block;height:8px;margin-top:6px;border-radius:4px;background:rgba(255,255,255,.55);overflow:hidden}
+.dbar i{display:block;height:100%;background:#D92D2D;border-radius:4px}
+.dcard.locked{--bg:#D5DAEC;--shade:#B4BCD6;--fg:#6F7AA3;border:3px dashed #9AA6CC;cursor:default}
+.dcard.locked .ic.dic{background:rgba(255,255,255,.55);filter:grayscale(1);opacity:.5}
+.dcard.shake{animation:shake .4s}
+.dnote{font-size:14px;font-weight:700;line-height:1.2}
+.dlockic{flex:none;margin-left:auto;display:grid;place-items:center;width:54px;height:54px;border-radius:50%;background:#fff;font-size:28px;line-height:1;box-shadow:0 3px 0 #B4BCD6}
+/* Zahlen: Zahlenreihe */
+.rarea{flex:1;display:flex;flex-direction:column;justify-content:center;gap:40px;padding:6px 0 18px}
+.rrow{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.rcell{aspect-ratio:1/1.15;display:grid;place-items:center;background:#fff;border:3px solid var(--b200);border-radius:12px;box-shadow:0 4px 0 var(--b200);font-size:clamp(26px,9vw,42px);font-weight:900;letter-spacing:-.04em;cursor:pointer}
+.rcell.rgap{border:3px dashed var(--b300);background:rgba(255,255,255,.55);box-shadow:none;cursor:default}
+.rgap .rq{font-style:normal;font-size:clamp(26px,9vw,40px);color:var(--b300)}
+.rcell.rgap.on{border:0;background:none}
+.rfill{--bg:var(--t600);--shade:var(--t700);--fg:#fff;width:100%;height:100%;display:grid;place-items:center;font-size:clamp(26px,9vw,42px);letter-spacing:-.04em;border-radius:12px;font-weight:900;animation:pop .4s}
+.rtray{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.rtile{cursor:pointer;aspect-ratio:1/1.05;display:grid;place-items:center;padding:0;font-size:clamp(40px,16vw,76px);letter-spacing:-.04em;border-radius:var(--r2);font-weight:900}
+.rtile.gone{visibility:hidden;box-shadow:none}
+.rtile.shake{animation:shake .4s}
+.rtile.off{opacity:.3;pointer-events:none}
 @media (prefers-reduced-motion:reduce){
+  .rfill,.rtile.shake{animation:none}
+  .dplay.rolling .die,.dhand{animation:none}
   .wb{animation:none}
-  .ofill,.otile.shake,.rbig{animation:none}
+  .ofill,.oslot.bad,.rbig{animation:none}
   .zi,.zwn,.zsprite i,.pz.happy .pza,.pz.happy .pze,.zan.arrive .zi,.zb.lit .halo,.zq{animation:none!important}
   .pzc.opening,.pzc.miss,.pzc.good{animation:none}
   .stk::after{display:none}.stk .gl{animation:none;opacity:.9}.stk.pop{animation:none}
@@ -362,7 +423,7 @@ div.zan{cursor:default}
 (function(){
 'use strict';
 const OPERATOR='Milena Meili';
-const KEY='buchstaben-v1', VERSION='2.3.1 · 11.10.2026';
+const KEY='buchstaben-v1', VERSION='2.8.1 · 11.10.2026';
 
 // Wörter pro Buchstabe: [Wort, Bild, optional Foto-Datei]
 const ICON_URI='data:image/png;base64,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';
@@ -459,8 +520,9 @@ async function loadCloud(){
 }
 // Name des Kindes, Ton und Stimme bleiben auf dem Gerät. Gespeichert wird nur der Lernfortschritt.
 function progDoc(inv){
-  // nums: letzte Antworten je Zahl als Text (1 = richtig, 0 = falsch), dazu nt (Zahlen-Fragenzähler) und hi (11 bis 20 dabei). t ist die Summe beider Zähler.
-  const nums=Object.assign({},S.nh,{nt:String(S.nt||0)},S.nhi?{hi:'1'}:{});
+  // nums: letzte Antworten je Zahl als Text (1 = richtig, 0 = falsch), dazu nt (Zahlen-Fragenzähler) und hi (Hören geht bis 20), hh (letzte 10 Antworten beim Hören). t ist die Summe beider Zähler.
+  // dg = Würfel-Stufe|Verlauf1|Verlauf2|Verlauf3|Würfe1|Würfe2|Würfe3, og = Stufe|Verlauf1|Verlauf2|Verlauf3
+  const nums=Object.assign({},S.nh,S.hh?{hh:S.hh}:{},{nt:String(S.nt||0),dg:[S.dlv||1,1,2,3].map((k,i)=>i?(S.dh&&S.dh[k])||'':k).concat([1,2,3].map(k=>(S.dc&&S.dc[k])||0)).join('|'),og:[S.olv||1,1,2,3].map((k,i)=>i?(S.oh&&S.oh[k])||'':k).join('|'),rg:[S.rlv||1,1,2,3,4].map((k,i)=>i?(S.rh&&S.rh[k])||'':k).join('|')},S.nhi?{hi:'1'}:{});
   const o=JSON.parse(JSON.stringify({box:S.box,last:S.last,streak:S.streak,ws:S.ws,okw:S.okw,stk:S.stk,lw:S.lw,nums,t:qTotal(),stars:pzCode()}));
   o.inv=inv;o.u=C.F.serverTimestamp();
   return o;
@@ -471,6 +533,27 @@ function adopt(d){
   const nm=d.nums||{};
   S.nh={};Object.keys(nm).forEach(k=>{if(/^\d+$/.test(k))S.nh[k]=String(nm[k]).replace(/[^01]/g,'').slice(-10)});
   S.nt=+nm.nt||0;S.nhi=nm.hi==='1';
+  const hist=v=>String(v||'').replace(/[^01]/g,'').slice(-10);
+  S.hh=hist(nm.hh);
+  S.dh={};S.dc={};S.dlv=1;S.oh={};S.olv=1;S.rh={};S.rlv=1;
+  if(nm.dg){   // Würfeln: Stufe|Verlauf1|Verlauf2|Verlauf3|Würfe1|Würfe2|Würfe3
+    const p=String(nm.dg).split('|');
+    S.dlv=Math.min(3,Math.max(1,+p[0]||1));
+    [1,2,3].forEach(k=>{const h=hist(p[k]);if(h)S.dh[k]=h;const c=+p[3+k];if(c>0)S.dc[k]=c});
+  }else{       // ältere Form (Version 2.4): einzelne Einträge d1 bis d3, c1 bis c3, dl
+    [1,2,3].forEach(k=>{if(nm['d'+k])S.dh[k]=hist(nm['d'+k]);if(+nm['c'+k]>0)S.dc[k]=+nm['c'+k]});
+    S.dlv=Math.min(3,Math.max(1,+nm.dl||1));
+  }
+  if(nm.rg){   // Zahlenreihe: Stufe|Verlauf1|Verlauf2|Verlauf3|Verlauf4
+    const p=String(nm.rg).split('|');
+    S.rlv=Math.min(4,Math.max(1,+p[0]||1));
+    [1,2,3,4].forEach(k=>{const h=hist(p[k]);if(h)S.rh[k]=h});
+  }
+  if(nm.og){   // Sortieren: Stufe|Verlauf1|Verlauf2|Verlauf3
+    const p=String(nm.og).split('|');
+    S.olv=Math.min(3,Math.max(1,+p[0]||1));
+    [1,2,3].forEach(k=>{const h=hist(p[k]);if(h)S.oh[k]=h});
+  }
   S.t=Math.max(0,(+d.t||0)-S.nt);
   if(typeof d.stars==='number'&&d.stars<0){const v=-d.stars-1;S.pz={a:Math.floor(v/256),m:v%256}}
   ensureLeitner();
@@ -700,7 +783,7 @@ function nextNew(picOnly,exclude){
 }
 function ensureLeitner(){
   if(!S.pz||typeof S.pz.a!=='number'||typeof S.pz.m!=='number')S.pz={a:0,m:0};
-  delete S.stars;
+  delete S.stars;delete S.zimg;
   ensureNums();
   S.last=S.last||{};S.streak=S.streak||{};S.ws=S.ws||{};S.okw=S.okw||{};S.stk=S.stk||{};S.lw=S.lw||{};S.t=S.t||0;
   if(S.box)return;
@@ -773,33 +856,37 @@ function grade(l,wi,ok){
 // ===== Zahlen 1 bis 20: einfaches Modell statt Leitner (eigener Fragenzähler S.nt) =====
 // Jede Zahl merkt sich die letzten 10 Antworten (erster Versuch, 1 richtig / 0 falsch).
 // Zuerst kommen alle Zahlen gleich oft dran (mindestens NMIN Antworten). Danach wird nach der Trefferquote der letzten 10 gewichtet:
-// 80 % und mehr: selten (Gewicht 1), 40 bis 80 %: normal (3), unter 40 %: oft (6). Zuerst 1 bis 10, 11 bis 20 kommen dazu, wenn 1 bis 10 sitzen.
+// 80 % und mehr: selten (Gewicht 1), 40 bis 80 %: normal (3), unter 40 %: oft (6). Zuerst Zahlen bis 9, danach bis 20.
 const NN=20,NUMBERS=Array.from({length:NN},(_,i)=>i+1),NMIN=6;
 const NW=['eins','zwei','drei','vier','fünf','sechs','sieben','acht','neun','zehn','elf','zwölf','dreizehn','vierzehn','fünfzehn','sechzehn','siebzehn','achtzehn','neunzehn','zwanzig'];   // so spricht die App (nie die Ziffer)
-const QOBJ=['🍎','🐟','⭐','🎈','🚗','🌼','🍪','⚽','🍓','🦆','🐝','🧸'];
 function ensureNums(){
-  S.nh=S.nh||{};S.nt=S.nt||0;S.nhi=!!S.nhi;
+  S.nh=S.nh||{};S.nt=S.nt||0;S.nhi=!!S.nhi;S.hh=typeof S.hh==='string'?S.hh:'';   // nhi: Hören geht bis 20 (sonst bis 9), hh: die letzten 10 Antworten beim Hören
+  S.rh=S.rh||{};S.rlv=Math.min(4,Math.max(1,+S.rlv||1));   // Zahlenreihe: letzte Antworten je Stufe, Stufe (1 bis 9, 2 bis 20, 3 rückwärts, 4 in 2er-Schritten)
+  S.oh=S.oh||{};S.olv=Math.min(3,Math.max(1,+S.olv||1));   // Sortieren: letzte Durchgänge je Stufe, Stufe (1: bis 9, 2: bis 14, 3: bis 20)
+  S.dh=S.dh||{};S.dc=S.dc||{};S.dlv=Math.min(3,Math.max(1,+S.dlv||1));   // Würfeln: letzte Antworten je Stufe, freigeschaltete Stufe (1 bis 3 Würfel)
   ['nbox','nlast','nstreak','nstk'].forEach(k=>{delete S[k]});   // Reste aus Version 2.0.0
 }
 const nHist=k=>S.nh[k]||'';
 const nRate=k=>{const h=nHist(k);return h.length?h.split('').filter(c=>c==='1').length/h.length:0};
-const nAvail=()=>S.nhi?NUMBERS:NUMBERS.slice(0,10);
+const nHearMax=()=>S.nhi?20:9;
+const nAvail=()=>NUMBERS.slice(0,nHearMax());
 function nLevel(k){
   if(nHist(k).length<NMIN)return 'neu';
   const r=nRate(k);return r>=.8?'sicher':r>=.4?'normal':'oft';
 }
-// 11 bis 20 kommen dazu, wenn jede Zahl von 1 bis 10 mindestens NMIN-mal dran war und keine unter 40 % liegt
+// Die Zahlen bis 20 kommen dazu, wenn jede Zahl bis 9 mindestens NMIN-mal dran war und von den letzten 10 Antworten 8 richtig waren
 function nCheckHigh(){
   if(S.nhi)return;
-  if(NUMBERS.slice(0,10).every(k=>nHist(k).length>=NMIN&&nRate(k)>=.4))S.nhi=true;
+  const h=S.hh||'';
+  if(NUMBERS.slice(0,9).every(k=>nHist(k).length>=NMIN)&&h.length>=10&&h.split('').filter(c=>c==='1').length>=8){S.nhi=true;if(G&&G.mode==='nhear')G.unlocked=2}
 }
-function nRecord(k,ok){S.nh[k]=(nHist(k)+(ok?'1':'0')).slice(-10);S.nt++;nCheckHigh()}
+function nRecord(k,ok){S.nh[k]=(nHist(k)+(ok?'1':'0')).slice(-10);S.hh=((S.hh||'')+(ok?'1':'0')).slice(-10);S.nt++;nCheckHigh()}
 function selectNumber(exclude){
   let av=nAvail().filter(k=>!exclude.has(k));
   if(!av.length)av=nAvail();
   const fresh=av.filter(k=>nHist(k).length<NMIN),rest=av.filter(k=>nHist(k).length>=NMIN);
   // neue Zahlen: gleich oft (die mit den wenigsten Antworten zuerst)
-  // Solange nur 1 bis 10 dabei sind, strikt gleich oft. Mit 11 bis 20 wird gemischt (60 % neue Zahlen), damit 1 bis 10 nicht liegen bleiben.
+  // Solange nur die Zahlen bis 9 dabei sind, strikt gleich oft. Mit den Zahlen bis 20 wird gemischt (60 % neue Zahlen), damit die ersten nicht liegen bleiben.
   if(fresh.length&&(!rest.length||!S.nhi||Math.random()<.6)){
     const mn=Math.min(...fresh.map(k=>nHist(k).length)),c=fresh.filter(k=>nHist(k).length===mn);
     return c[Math.floor(Math.random()*c.length)];
@@ -918,7 +1005,7 @@ const ANIMALS=[
 ];   // m = Bewegung im Gehege, bg = Hintergrund des Aufdeck-Bildes (PZBG), pic = Bild, e = Emoji (Zoo und Konfetti)
 // Aufdeck-Bild: Hintergrund und Tier. Zoo: Emoji, oder das Bild, wenn im Elternbereich eingeschaltet
 const aVis=an=>pzBg(an.bg)+(an.pic?`<img class="pza" src="${an.pic}" alt="" onerror="this.style.display='none'">`:`<span class="pze">${an.e}</span>`);
-const aVisIn=an=>(S.zimg&&an.pic)?`<img class="zpic" src="${an.pic}" alt="">`:an.e;
+const aVisIn=an=>an.e;   // im Zoo immer das Emoji (das Bild gehört zum Aufdeck-Bild)
 const PIECES=8,FULL=(1<<PIECES)-1;
 const curAnimal=()=>ANIMALS[S.pz.a%ANIMALS.length];
 function pzHtml(o){
@@ -1208,6 +1295,7 @@ function render(){
   if(view!=='zoo')ZMOVE=null;
   if(view==='home')app.innerHTML=homeHtml();
   else if(view==='letters'||view==='numbers')app.innerHTML=menuHtml(view);
+  else if(view==='dice')app.innerHTML=diceMenuHtml();
   else if(view==='discover')app.innerHTML=discoverHtml();
   else if(view==='album')app.innerHTML=albumHtml();
   else if(view==='zoo')app.innerHTML=zooHtml();
@@ -1295,8 +1383,10 @@ function homeHtml(){
 function menuHtml(w){
   const num=w==='numbers';
   const items=num
-    ?`<button class="blk big c2" data-a="play-qty"><span class="ic">🍎</span><span>Wie viele?</span></button>
-    <button class="blk big c1" data-a="play-ord"><span class="ic">↗️</span><span>Was ist grösser?</span></button>`
+    ?`<button class="blk big c2" data-a="play-nhear"><span class="ic">👂</span><span class="btx">Hören<small>Zahlen bis ${nHearMax()}</small></span></button>
+    <button class="blk big c1" data-a="play-ord"><span class="ic">↗️</span><span class="btx">Sortieren<small>Zahlen bis ${OMAX[S.olv]}</small></span></button>
+    <button class="blk big c3" data-a="play-dice"><span class="ic">🎲</span><span>Würfeln</span></button>
+    <button class="blk big c0" data-a="play-rrow"><span class="ic">🔢</span><span class="btx">Zahlenreihe<small>${RSTAGE[S.rlv]}</small></span></button>`
     :`<button class="blk big c3" data-a="discover"><span class="ic">🔤</span><span>Entdecken</span></button>
     <button class="blk big c0" data-a="play-hear"><span class="ic">👂</span><span>Hören und tippen</span></button>
     <button class="blk big c1" data-a="play-pic"><span class="ic">🖼️</span><span>Bilder-Rätsel</span></button>
@@ -1316,8 +1406,10 @@ function dotsHtml(){
 }
 function gameHtml(){
   if(G.mode==='match')return matchHtml();
-  if(G.mode==='qty')return qtyHtml();
+  if(G.mode==='nhear')return nhearHtml();
+  if(G.mode==='dice')return diceHtml();
   if(G.mode==='ord')return ordHtml();
+  if(G.mode==='rrow')return rrowHtml();
   const q=G.q;
   const prompt=G.mode==='hear'
     ?`<button class="blk say c2" data-a="again" aria-label="Nochmal hören">🔊</button>`
@@ -1329,15 +1421,19 @@ function gameHtml(){
 }
 function resultNumHtml(){
   const r=G.right,msg=r>=G.max?'Fantastisch!':r>=G.max*.6?'Super gemacht!':'Gut geübt!';
-  return `<div class="result">${gearBtn().replace('class="gear"','class="gear rgear"')}<h2>${msg}</h2><div class="rbig">👏</div>
-  <p class="sub">${r} von ${G.max} gleich beim ersten Mal richtig</p>
+  const dice=G.mode==='dice',ord=G.mode==='ord';
+  const note=G.unlocked?(dice?`Neu: ${G.unlocked} Würfel!`:(G.mode==='nhear'?'Neu: Zahlen bis 20!':G.mode==='rrow'?`Neu: ${RSTAGE[G.unlocked]}!`:`Neu: Zahlen bis ${OMAX[G.unlocked]}!`)):'';
+  return `<div class="result">${gearBtn().replace('class="gear"','class="gear rgear"')}<h2>${msg}</h2><div class="rbig">${G.unlocked?'🔓':'👏'}</div>
+  ${note?`<p class="sub"><b>${note}</b></p>`:''}
+  <p class="sub${note?' sm':''}">${r} von ${G.max} gleich beim ersten Mal richtig</p>
   <div class="actions">
+    ${G.unlocked&&dice?`<button class="blk c2 full" data-a="dice-play" data-lv="${G.unlocked}">🎲 ${G.unlocked} Würfel</button>`:''}
     <button class="blk c3" data-a="again-round">▶️ Nochmal</button>
-    <button class="blk c4" data-a="menu">🏠 Fertig</button>
+    <button class="blk c4" data-a="${dice?'dmenu':'menu'}">🏠 Fertig</button>
   </div></div>`;
 }
 function resultHtml(){
-  if(G.mode==='qty'||G.mode==='ord')return resultNumHtml();
+  if(G.mode==='nhear'||G.mode==='ord'||G.mode==='dice'||G.mode==='rrow')return resultNumHtml();
   const r=G.right,nw=G.newAnimal!==undefined;
   const an=nw?ANIMALS[G.newAnimal%ANIMALS.length]:null;
   const msg=nw?'Neues Tier!':r>=G.max?'Fantastisch!':r>=G.max*.6?'Super gemacht!':'Gut geübt!';
@@ -1355,13 +1451,14 @@ function resultHtml(){
 }
 
 // Spiel
-function startGame(mode){
-  const set=mode==='match'||mode==='ord';
-  world=(mode==='qty'||mode==='ord')?'numbers':'letters';
+function startGame(mode,lv){
+  const set=mode==='match';
+  world=(mode==='nhear'||mode==='ord'||mode==='dice'||mode==='rrow')?'numbers':'letters';
   // mk: orange vorgemerkte Teile dieser Runde (nur Buchstaben, nicht gespeichert)
   G={mode,i:0,right:0,stickers:[],q:null,last:null,wrong:[],fsets:[],played:[],xq:null,mk:0,
-     main:set?3:MAINQ,total:set?3:MAINQ,max:set?9:MAINQ,sizes:[3,3,3],pieces:[3,3,2],newAnimal:undefined};
-  if(mode==='match')nextSet();else if(mode==='ord')nextOrd();else if(mode==='qty')nextQN();else nextQ();
+     main:set?3:MAINQ,total:set?3:MAINQ,max:set?9:MAINQ,sizes:[3,3,3],pieces:[3,3,2],newAnimal:undefined,
+     lv:Math.min(Math.max(1,lv||1),S.dlv||1),lastSum:0,unlocked:0};
+  if(mode==='match')nextSet();else if(mode==='ord')nextOrd();else if(mode==='nhear')nextNH();else if(mode==='dice')nextQD();else if(mode==='rrow')nextRR();else nextQ();
 }
 // Ende einer Runde (nach der Wiederholung): ist das Bild ganz aufgedeckt, kommt das Tier in den Zoo
 function finishRound(){
@@ -1395,7 +1492,8 @@ function unlockQ(q){
   if(G&&G.q===q&&q.locked){q.locked=false;const o=$('.opts');if(o)o.classList.remove('wait')}
 }
 function promptQ(){
-  if(G&&G.mode==='qty')return promptQN();
+  if(G&&G.mode==='nhear')return promptNH();
+  if(G&&G.mode==='dice')return promptQD();
   if(!G||!G.q)return;
   const q=G.q,t=LET[q.t],wd=q.word.w;
   const lead=q.extra&&!q.asked?'Noch einmal! ':'';
@@ -1432,42 +1530,47 @@ function pick(btn){
   }
 }
 
-// ===== Zahlen: «Wie viele?» (Menge sehen, Ziffer wählen) =====
-// Mengen stehen in Reihen zu 5 (wie ein Zehnerfeld). Antippen zählt laut mit. Noch ohne Belohnung.
-function qtyHtml(){
-  const q=G.q,n=q.t,rows=Math.ceil(n/5);
-  const cells=Array.from({length:n},(_,i)=>`<button class="qo" data-a="qo" data-i="${i}" aria-label="Zählen">${q.obj}</button>`).join('');
+// ===== Zahlen: «Hören» (eine Zahl wird gesagt, die richtige Ziffer antippen) =====
+// Die Antworten sind ähnliche Zahlen: Zwillinge (6 und 16), ähnlich aussehende (6 und 9) und Nachbarn (6, 7, 8).
+// Stufen: Zahlen bis 9, danach bis 20 (nCheckHigh). Welche Zahl drankommt, bestimmt die Trefferquote der letzten 10 (selectNumber). Noch ohne Belohnung.
+const NOPT=[[6,9],[2,5],[1,7],[3,8],[16,19],[13,18],[12,15]];
+function nSimilar(k,max){
+  const ok=x=>x>=1&&x<=max&&x!==k;
+  const twin=[k+10,k-10].filter(ok);
+  const look=[];NOPT.forEach(p=>{if(p[0]===k)look.push(p[1]);if(p[1]===k)look.push(p[0])});
+  const near=shuffle([k-1,k+1,k-2,k+2].filter(ok));
+  const pick=[];
+  [shuffle(twin.concat(look.filter(ok))),near].forEach(g=>g.forEach(x=>{if(pick.length<2&&pick.indexOf(x)<0)pick.push(x)}));
+  const rest=shuffle(Array.from({length:max},(_,i)=>i+1).filter(x=>ok(x)&&pick.indexOf(x)<0));
+  while(pick.length<2)pick.push(rest.shift());
+  return pick;
+}
+const capW=s=>s.charAt(0).toUpperCase()+s.slice(1);
+function nhearHtml(){
+  const q=G.q;
   return `<div class="game"><div class="top">${backBtn('menu')}${dotsHtml()}</div>
-  <div class="prompt"><div class="qty r${rows}" style="--c:${Math.min(5,n)}">${cells}</div><button class="blk say sm c2" data-a="again" aria-label="Nochmal hören">🔊</button></div>
+  <div class="prompt"><button class="blk say c2" data-a="again" aria-label="Nochmal hören">🔊</button></div>
   <div class="opts nums${q.locked?' wait':''}">${q.opts.map(k=>`<button class="blk opt c2" data-a="pick" data-l="${k}" aria-label="${NW[k-1]}">${k}</button>`).join('')}</div></div>`;
 }
 function finishRoundN(){
   persist();
   view='result';render();pushNow();
-  chime();speak('Fertig! Gut gemacht.');
+  chime();speak(G.unlocked?(G.mode==='dice'?`Fertig! Neu freigeschaltet: ${G.unlocked===2?'zwei':'drei'} Würfel!`:G.mode==='rrow'?`Fertig! Neu freigeschaltet: ${RSAY[G.unlocked]}!`:`Fertig! Neu freigeschaltet: Zahlen bis ${NW[(G.mode==='nhear'?20:OMAX[G.unlocked])-1]}!`):'Fertig! Gut gemacht.');
 }
-function nextQN(){
+function nextNH(){
   if(G.i>=G.main){finishRoundN();return}
   const k=selectNumber(new Set(G.last?[G.last]:[]));G.last=k;
-  // Antworten: eher Nachbarzahlen
-  const un=nAvail().filter(x=>x!==k);
-  const near=shuffle(un.filter(x=>Math.abs(x-k)<=3)),far=shuffle(un.filter(x=>Math.abs(x-k)>3));
-  const others=near.concat(far).slice(0,2);
-  let obj=QOBJ[Math.floor(Math.random()*QOBJ.length)];
-  if(obj===G.lo)obj=QOBJ[(QOBJ.indexOf(obj)+1)%QOBJ.length];
-  G.lo=obj;
-  G.q={t:k,obj,opts:shuffle([k,...others]),tries:0,done:false,locked:true,cn:0,num:true};
+  G.q={t:k,opts:shuffle([k,...nSimilar(k,nHearMax())]),tries:0,done:false,locked:true,num:true};
   view='game';render();
   setTimeout(promptQ,250);
 }
-function promptQN(){
+function promptNH(){
   if(!G||!G.q)return;
   const q=G.q;
-  const txt=G.i===0&&!q.asked?'Wie viele sind das? Du kannst sie zählen.':'Wie viele sind das?';
   q.asked=true;
-  speak(txt,()=>unlockQ(q));
+  speak(`Wo ist die ${capW(NW[q.t-1])}?`,()=>unlockQ(q));
 }
-function pickN(btn){
+function pickNH(btn){
   const q=G&&G.q;if(!q||q.done||q.locked)return;
   const k=+btn.dataset.l;
   if(k===q.t){
@@ -1475,35 +1578,231 @@ function pickN(btn){
     let chars=[];
     if(q.tries===0){G.right++;chars=['✨'];nRecord(q.t,true)}
     persist();chime();if(chars.length)burst(btn,chars);
-    speak(`${PRAISE[Math.floor(Math.random()*PRAISE.length)]} ${NW[k-1]}.`);
+    speak(`${PRAISE[Math.floor(Math.random()*PRAISE.length)]} ${capW(NW[k-1])}.`);
     const dots=document.querySelectorAll('.dots i');if(dots[G.i])dots[G.i].classList.add('on');
-    setTimeout(()=>{if(!G||G.q!==q)return;G.i++;nextQN()},2600);
+    setTimeout(()=>{if(!G||G.q!==q)return;G.i++;nextNH()},2400);
   }else{
     if(q.tries===0){nRecord(q.t,false);persist()}
+    q.tries++;btn.classList.add('shake','off');soft();
+    speak(`Fast! Wo ist die ${capW(NW[q.t-1])}?`);
+  }
+}
+
+// ===== Würfeln: tippen, würfeln, Augen zählen, die Summe wählen =====
+// Stufen: 1, 2 und 3 Würfel (höchste Summe 18). Die nächste Stufe schaltet sich frei, wenn von den letzten 10 Antworten der aktuellen Stufe 8 stimmten.
+const DPAT=[null,[0,0,0,0,1,0,0,0,0],[1,0,0,0,0,0,0,0,1],[1,0,0,0,1,0,0,0,1],[1,0,1,0,0,0,1,0,1],[1,0,1,0,1,0,1,0,1],[1,0,1,1,0,1,1,0,1]];
+const dHist=lv=>S.dh[lv]||'';
+const DMIN=20;   // so viele Würfe braucht jede Stufe mindestens, bevor die nächste frei wird
+const dCount=lv=>Math.max(S.dc[lv]||0,dHist(lv).length);
+function dRecord(lv,ok){
+  const c=dCount(lv)+1;   // zuerst zählen, dann den Verlauf ergänzen (sonst würde der erste Wurf doppelt zählen)
+  S.dh[lv]=(dHist(lv)+(ok?'1':'0')).slice(-10);S.dc[lv]=c;S.nt++;
+  const h=dHist(lv);
+  if(lv===S.dlv&&lv<3&&S.dc[lv]>=DMIN&&h.length>=10&&h.split('').filter(c=>c==='1').length>=8){S.dlv=lv+1;if(G)G.unlocked=S.dlv}
+}
+const dieStyle=i=>`--dx:${[-80,70,-30][i]||0}px;--rs:${i%2?-1:1};--dd:${(i*0.09).toFixed(2)}s`;
+function faceInner(v,k0){
+  if(!v)return '<b class="q">?</b>';
+  let k=k0;
+  return DPAT[v].map(p=>p?`<i class="pip" data-k="${k++}"></i>`:'<i></i>').join('');
+}
+const dieHtml=(v,k0,i)=>`<div class="die" style="${dieStyle(i||0)}">${faceInner(v,k0)}</div>`;
+const miniDie=v=>`<i class="die mini">${faceInner(v,-9)}</i>`;
+function diceAreaHtml(){
+  const q=G.q;let k=0;
+  const row=q.dice.map((v,i)=>{const h=dieHtml(q.rolled?v:null,k,i);k+=v;return h}).join('');
+  // Der Hinweis bleibt nach dem Wurf unsichtbar stehen, damit die Würfel nicht verrutschen (gleiche Höhe vor, während und nach dem Wurf)
+  return `<div class="drow">${row}</div><div class="dhint"${q.rolled?' style="visibility:hidden"':''}><span class="dhand">👆</span>Tippe zum Würfeln</div>`;
+}
+function diceHtml(){
+  const q=G.q;
+  return `<div class="game"><div class="top">${backBtn('dmenu')}${dotsHtml()}</div>
+  <div class="dplay n${q.dice.length}" data-a="droll" id="dplay">${diceAreaHtml()}</div>
+  <div class="dsay${q.rolled?'':' hide'}"><button class="blk say sm c2" data-a="again" aria-label="Nochmal hören">🔊</button></div>
+  <div class="opts nums${q.rolled?'':' hide'}${q.locked?' wait':''}">${q.opts.map(k=>`<button class="blk opt c2" data-a="pick" data-l="${k}" aria-label="${NW[k-1]}">${k}</button>`).join('')}</div></div>`;
+}
+function diceMenuHtml(){
+  const faces=[[5],[3,4],[2,5,6]];
+  const cards=[1,2,3].map(lv=>{
+    const open=lv<=S.dlv,h=dHist(lv),cur=lv===S.dlv&&lv<3;
+    const dots=Array.from({length:10},(_,i)=>`<i class="dd${h[i]==='1'?' ok':h[i]==='0'?' no':''}"></i>`).join('');
+    const bar=cur?`<span class="dbar" aria-hidden="true"><i style="width:${Math.min(100,Math.round(dCount(lv)/DMIN*100))}%"></i></span>`:'';
+    const ic=`<span class="ic dic">${faces[lv-1].map(miniDie).join('')}</span>`;
+    return open
+      ?`<button class="blk big c2 dcard" data-a="dice-play" data-lv="${lv}" aria-label="${lv} Würfel">${ic}<span class="dtext"><b>${lv} Würfel</b><span class="ddots">${dots}</span>${bar}</span></button>`
+      :`<button class="blk big c2 dcard locked" data-a="dlock" data-lv="${lv}" aria-label="${lv} Würfel, gesperrt">${ic}<span class="dtext"><b>${lv} Würfel</b><span class="dnote">Gesperrt: zuerst ${lv-1} Würfel schaffen</span></span><span class="dlockic">🔒</span></button>`;
+  }).join('');
+  return `<div class="top">${backBtn('menu')}<div class="grow"><h1>Würfeln</h1></div>${gearBtn()}</div>
+  <div class="menu">${cards}</div>`;
+}
+function nextQD(){
+  if(G.i>=G.main){finishRoundN();return}
+  const lv=G.lv;let dice,sum,tries=0;
+  do{dice=Array.from({length:lv},()=>1+Math.floor(Math.random()*6));sum=dice.reduce((a,b)=>a+b,0)}while(sum===G.lastSum&&tries++<6);
+  G.lastSum=sum;
+  // Antworten: Nachbarsummen
+  const cand=[];
+  for(let d=1;d<=4;d++)[sum-d,sum+d].forEach(x=>{if(x>=lv&&x<=6*lv&&x!==sum&&cand.indexOf(x)<0)cand.push(x)});
+  const close=cand.filter(x=>Math.abs(x-sum)<=2),others=shuffle(close.length>=2?close:cand).slice(0,2);
+  G.q={t:sum,sum,dice,opts:shuffle([sum,...others]),tries:0,done:false,locked:true,rolled:false,rolling:false,cn:0};
+  view='game';render();
+  setTimeout(()=>speak(G.i===0?'Tippe auf den Bildschirm, dann würfelt es.':'Tippe zum Würfeln.'),250);
+}
+function promptQD(){
+  if(!G||!G.q||!G.q.rolled)return;
+  const q=G.q;
+  speak(q.dice.length>1?'Wie viele Augen sind das zusammen?':'Wie viele Augen sind das?',()=>unlockQ(q));
+}
+// Tippen: zuerst würfeln, danach zählt jedes Tippen die nächste Augenzahl laut mit
+function diceTap(){
+  const q=G&&G.q;if(!q||G.mode!=='dice'||q.rolling)return;
+  if(!q.rolled)return rollDice(q);
+  if(q.cn>=q.sum)return;
+  q.cn++;
+  const p=document.querySelector('.pip[data-k="'+(q.cn-1)+'"]');if(p)p.classList.add('on');
+  speak(NW[q.cn-1],()=>unlockQ(q));
+}
+function rollDice(q){
+  q.rolling=true;
+  const pl=$('#dplay');if(pl)pl.classList.add('rolling');
+  const dh=$('.dhint');if(dh)dh.style.visibility='hidden';
+  let n=16;
+  const step=()=>{
+    if(!G||G.q!==q)return;
+    const dies=document.querySelectorAll('#dplay .die');
+    if(n-->0){
+      dies.forEach(el=>{el.innerHTML=faceInner(1+Math.floor(Math.random()*6),9999)});
+      tone([200+Math.floor(Math.random()*220)],.05);
+      setTimeout(step,90);
+    }else{
+      q.rolling=false;q.rolled=true;
+      let k=0;dies.forEach((el,i)=>{el.innerHTML=faceInner(q.dice[i],k);k+=q.dice[i]||0});
+      const p2=$('#dplay');if(p2)p2.classList.remove('rolling');
+      const o=$('.opts');if(o)o.classList.remove('hide');
+      const s=$('.dsay');if(s)s.classList.remove('hide');
+      tone([180],.12);
+      promptQD();
+    }
+  };
+  step();
+}
+function pickD(btn){
+  const q=G&&G.q;if(!q||q.done||q.locked||!q.rolled)return;
+  const k=+btn.dataset.l;
+  if(k===q.sum){
+    q.done=true;btn.classList.add('win');
+    let chars=[];
+    if(q.tries===0){G.right++;chars=['✨'];dRecord(G.lv,true)}
+    persist();chime();if(chars.length)burst(btn,chars);
+    speak(`${PRAISE[Math.floor(Math.random()*PRAISE.length)]} ${q.dice.length>1?q.dice.map(v=>NW[v-1]).join(' plus ')+' gleich ':''}${NW[k-1]}.`);
+    const dots=document.querySelectorAll('.dots i');if(dots[G.i])dots[G.i].classList.add('on');
+    setTimeout(()=>{if(!G||G.q!==q)return;G.i++;nextQD()},3000);
+  }else{
+    if(q.tries===0){dRecord(G.lv,false);persist()}
     q.tries++;btn.classList.add('shake','off');soft();
     speak('Fast! Zähl nochmal.');
   }
 }
-// Antippen zählt: jedes Ding nur einmal, die App sagt die laufende Zahl
-function countTap(btn){
-  const q=G&&G.q;if(!q||G.mode!=='qty'||btn.classList.contains('cnt'))return;
-  q.cn=(q.cn||0)+1;
-  btn.classList.add('cnt');btn.dataset.c=q.cn;
-  speak(NW[q.cn-1],()=>unlockQ(q));
+
+// ===== Zahlen: «Zahlenreihe» (Was fehlt?) =====
+// Eine Reihe aus 5 Zahlen hat eine Lücke. Die fehlende Zahl wird aus 3 Zahlen angetippt, sofort mit Rückmeldung (der erste Versuch zählt).
+// Stufen, nur durch das Spielen: 1 Zahlen bis 9, 2 Zahlen bis 20, 3 rückwärts, 4 in 2er-Schritten. Die nächste Stufe, wenn von den letzten 10 Antworten der Stufe 8 stimmten.
+// Frühere Arten kommen weiter dazwischen vor (etwa 40 %). Falsche Antworten: ähnliche Zahlen, die nicht schon in der Reihe stehen (bei 2er-Schritten auch die Zahl daneben).
+const RSTAGE=['','Zahlen bis 9','Zahlen bis 20','rückwärts','2er-Schritte'];
+const RSAY=['','Zahlen bis neun','Zahlen bis zwanzig','rückwärts','Zweierschritte'];
+const rHist=lv=>S.rh[lv]||'';
+function rRecord(lv,ok){
+  S.rh[lv]=(rHist(lv)+(ok?'1':'0')).slice(-10);S.nt++;
+  const h=rHist(lv);
+  if(lv===S.rlv&&lv<4&&h.length>=10&&h.split('').filter(c=>c==='1').length>=8){S.rlv=lv+1;if(G)G.unlocked=S.rlv}
+}
+const rInt=n=>1+Math.floor(Math.random()*n);
+function rRow(type){
+  if(type===1){const s=rInt(5);return [0,1,2,3,4].map(i=>s+i)}       // 1 bis 9
+  if(type===2){const s=rInt(16);return [0,1,2,3,4].map(i=>s+i)}      // bis 20
+  if(type===3){const e=4+rInt(16);return [0,1,2,3,4].map(i=>e-i)}    // rückwärts, von 5 bis 20
+  const s=rInt(12);return [0,1,2,3,4].map(i=>s+2*i);                 // 2er-Schritte, bis 20
+}
+function rOptions(row,gi,type){
+  const k=row[gi],max=type===1?9:20,inRow=x=>row.indexOf(x)>=0;
+  const ok=x=>x>=1&&x<=max&&x!==k&&!inRow(x);
+  const lo=Math.min(...row),hi=Math.max(...row);
+  const cand=type===4
+    ?shuffle([k-1,k+1]).concat(shuffle(nSimilar(k,max)),[lo-1,hi+1,lo-2,hi+2])
+    :shuffle(nSimilar(k,max)).concat(shuffle([lo-1,hi+1,lo-2,hi+2]));
+  const out=[];
+  cand.filter(ok).forEach(x=>{if(out.length<2&&out.indexOf(x)<0)out.push(x)});
+  const rest=shuffle(Array.from({length:max},(_,i)=>i+1).filter(x=>ok(x)&&out.indexOf(x)<0));
+  while(out.length<2)out.push(rest.shift());
+  return out;
+}
+function rrowAreaHtml(){
+  const q=G.q;
+  const cells=q.row.map((n,i)=>i===q.gap
+    ?(q.done?`<div class="rcell rgap on"><div class="blk c3 rfill">${n}</div></div>`:`<div class="rcell rgap" data-i="${i}"><i class="rq">?</i></div>`)
+    :`<div class="rcell" data-a="rnum" data-n="${n}">${n}</div>`).join('');
+  const tiles=q.tiles.map(n=>q.done?'<div class="rtile gone"></div>':`<button class="blk rtile c2" data-a="rpick" data-n="${n}" aria-label="${NW[n-1]}">${n}</button>`).join('');
+  return `<div class="rrow">${cells}</div><div class="rtray">${tiles}</div>`;
+}
+function rrowHtml(){
+  return `<div class="game"><div class="top">${backBtn('menu')}${dotsHtml()}</div>
+  <div class="rarea">${rrowAreaHtml()}</div></div>`;
+}
+function nextRR(){
+  if(G.i>=G.main){finishRoundN();return}
+  const type=(S.rlv===1||Math.random()<.6)?S.rlv:rInt(S.rlv-1);   // 60 % die aktuelle Art, sonst eine frühere
+  let row,gap,key,tries=0;
+  do{row=rRow(type);gap=Math.floor(Math.random()*5);key=type+':'+row.join()+':'+gap}while(key===G.lastR&&tries++<6);
+  G.lastR=key;
+  const k=row[gap];
+  G.q={type,row,gap,tiles:shuffle([k,...rOptions(row,gap,type)]),tries:0,done:false};
+  view='game';render();
+  setTimeout(()=>speak(G.i===0?'Welche Zahl fehlt? Tippe die richtige Zahl.':'Welche Zahl fehlt?'),250);
+}
+function rPick(btn){
+  const q=G&&G.q;if(!q||G.mode!=='rrow'||q.done)return;
+  const n=+btn.dataset.n;if(!n)return;
+  if(n===q.row[q.gap]){
+    q.done=true;
+    let chars=[];
+    if(q.tries===0){G.right++;chars=['✨'];rRecord(q.type,true)}
+    persist();chime();
+    const area=$('.rarea');if(area)area.innerHTML=rrowAreaHtml();
+    const g=document.querySelector('.rgap');if(chars.length&&g)burst(g,chars);
+    speak(`${PRAISE[Math.floor(Math.random()*PRAISE.length)]} ${q.row.map(x=>NW[x-1]).join(', ')}.`);
+    const dots=document.querySelectorAll('.dots i');if(dots[G.i])dots[G.i].classList.add('on');
+    setTimeout(()=>{if(!G||G.q!==q)return;G.i++;nextRR()},3400);
+  }else{
+    if(q.tries===0){rRecord(q.type,false);persist()}
+    q.tries++;soft();
+    btn.classList.add('shake','off');
+    speak('Fast! Probier nochmal.');
+  }
 }
 
-// ===== Zahlen: «Was ist grösser?» (drei Zahlen von klein nach gross antippen) =====
+// ===== Zahlen: «Sortieren» (drei Zahlen in die Felder ziehen, von klein nach gross) =====
+// Solange nicht alle drei Felder belegt sind, gibt es keine Rückmeldung: Zahlen lassen sich auf freie Felder ziehen, mit einer anderen tauschen oder zurücklegen.
+// Sobald alle drei liegen, ist der Durchgang richtig oder falsch. Bei «falsch» steht die richtige Reihenfolge darunter.
+// Eigene Stufen: Zahlen bis 9, bis 14, bis 20. Die nächste Stufe, wenn von den letzten 10 Durchgängen 8 richtig waren.
+const OMAX=[0,9,14,20];
+const oHist=lv=>S.oh[lv]||'';
+function oRecord(ok){
+  const lv=S.olv;
+  S.oh[lv]=(oHist(lv)+(ok?'1':'0')).slice(-10);S.nt++;
+  const h=oHist(lv);
+  if(lv<3&&h.length>=10&&h.split('').filter(c=>c==='1').length>=8){S.olv=lv+1;if(G)G.unlocked=S.olv}
+}
 function ordAreaHtml(){
-  const o=G.o;
-  const slots=o.sorted.map((n,i)=>o.placed[i]!==undefined
-    ?`<div class="oslot on"><div class="blk c2 ofill">${o.placed[i]}</div></div>`
-    :`<div class="oslot"><i class="od" style="--s:${i}"></i></div>`).join('');
-  const tiles=o.tiles.map(n=>o.placed.includes(n)
-    ?`<div class="otile gone"></div>`
-    :`<button class="blk otile c2" data-a="otap" data-n="${n}" aria-label="${NW[n-1]}">${n}</button>`).join('');
-  return `<div class="oslots">${slots}</div>
-  <div class="olabel"><span>klein</span><i class="oarrow"></i><span>gross</span></div>
-  <div class="otiles">${tiles}</div>`;
+  const o=G.o,wrong=o.done&&!o.ok;
+  const slots=o.slots.map((n,i)=>n!==null
+    ?`<div class="oslot on${o.done?(o.ok?' good':' bad'):''}" data-i="${i}"><div class="blk otile c2 inslot${o.done?' static':''}" data-a="otile" data-n="${n}" aria-label="${NW[n-1]}">${n}</div></div>`
+    :`<div class="oslot" data-i="${i}"><i class="od" style="--s:${i}"></i></div>`).join('');
+  const label=wrong?'<div class="olabel good"><span>So ist es richtig</span></div>'
+    :'<div class="olabel"><span>klein</span><i class="oarrow"></i><span>gross</span></div>';
+  const tiles=wrong
+    ?o.sorted.map(n=>`<div class="blk otile c3 static">${n}</div>`).join('')
+    :o.tiles.map(n=>o.slots.includes(n)?'<div class="otile gone"></div>':`<div class="blk otile c2" data-a="otile" data-n="${n}" aria-label="${NW[n-1]}">${n}</div>`).join('');
+  return `<div class="oslots">${slots}</div>${label}<div class="otiles">${tiles}</div>`;
 }
 function ordHtml(){
   return `<div class="game"><div class="top">${backBtn('menu')}${dotsHtml()}</div>
@@ -1511,38 +1810,53 @@ function ordHtml(){
 }
 function nextOrd(){
   if(G.i>=G.main){finishRoundN();return}
-  const ex=new Set(),nums=[];
-  for(let i=0;i<3;i++){const k=selectNumber(ex);ex.add(k);nums.push(k)}
-  const sorted=nums.slice().sort((x,y)=>x-y);
+  const max=OMAX[S.olv],pool=Array.from({length:max},(_,i)=>i+1);
+  let nums,key,tries=0;
+  do{nums=shuffle(pool).slice(0,3);key=nums.slice().sort((a,b)=>a-b).join()}while(key===G.lastSet&&tries++<6);
+  G.lastSet=key;
+  const sorted=nums.slice().sort((a,b)=>a-b);
   let tiles=shuffle(nums),n=0;
   while(n++<6&&tiles.every((x,i)=>x===sorted[i]))tiles=shuffle(nums);
-  G.o={ids:nums,sorted,tiles,placed:[],tried:new Set()};
+  G.o={ids:nums,sorted,tiles,slots:[null,null,null],done:false,ok:false};
   view='game';render();
-  setTimeout(()=>speak(G.i===0?'Tippe die Zahlen der Reihe nach. Zuerst die kleinste.':'Welche Zahl ist die kleinste?'),250);
+  setTimeout(()=>speak(G.i===0?'Zieh die Zahlen in die Felder, von klein nach gross. Links die kleinste.':'Von klein nach gross.'),250);
 }
-function ordTap(btn){
-  const o=G&&G.o;if(!o||G.mode!=='ord')return;
-  const n=+btn.dataset.n;if(o.placed.includes(n))return;
-  const want=o.sorted[o.placed.length];
-  if(n===want){
-    o.placed.push(n);
-    let chars=[];
-    if(!o.tried.has(n)){G.right++;chars=['✨'];nRecord(n,true)}
-    persist();chime();
-    const area=$('.oarea');if(area)area.innerHTML=ordAreaHtml();
-    const on=document.querySelectorAll('.oslot.on');
-    if(chars.length&&on.length)burst(on[on.length-1],chars);
-    if(o.placed.length===3){
-      speak(`${PRAISE[Math.floor(Math.random()*PRAISE.length)]} ${o.sorted.map(x=>NW[x-1]).join(', ')}.`);
-      const dots=document.querySelectorAll('.dots i');if(dots[G.i])dots[G.i].classList.add('on');
-      setTimeout(()=>{if(!G||G.o!==o)return;G.i++;nextOrd()},3200);
-    }else speak(`${NW[n-1]}. ${o.placed.length===1?'Und jetzt die nächste?':'Und die letzte?'}`);
+// n in das Feld idx ziehen (target 'slot') oder zurücklegen (target 'tray')
+function ordMove(n,target,idx){
+  const o=G&&G.o;if(!o||G.mode!=='ord'||o.done)return;
+  const from=o.slots.indexOf(n);
+  if(target==='slot'){
+    if(from===idx)return;
+    const occ=o.slots[idx];
+    o.slots[idx]=n;
+    if(from>=0)o.slots[from]=occ;   // tauschen, oder den alten Platz freigeben
   }else{
-    if(!o.tried.has(n)){nRecord(n,false);persist()}
-    o.tried.add(n);soft();
-    btn.classList.add('shake');setTimeout(()=>btn.classList.remove('shake'),450);
-    speak('Fast! Welche Zahl ist die kleinste?');
+    if(from<0)return;
+    o.slots[from]=null;
   }
+  const area=$('.oarea');if(area)area.innerHTML=ordAreaHtml();
+  if(o.slots.every(x=>x!==null))ordCheck();
+}
+function ordCheck(){
+  const o=G.o;
+  o.done=true;o.ok=o.slots.every((n,i)=>n===o.sorted[i]);
+  oRecord(o.ok);persist();
+  if(o.ok)G.right++;
+  const area=$('.oarea');if(area)area.innerHTML=ordAreaHtml();
+  const words=o.sorted.map(x=>NW[x-1]).join(', ');
+  if(o.ok){
+    chime();const sl=document.querySelector('.oslots');if(sl)burst(sl,['✨','✨']);
+    speak(`${PRAISE[Math.floor(Math.random()*PRAISE.length)]} ${words}.`);
+  }else{
+    soft();speak(`Fast! Richtig ist: ${words}.`);
+  }
+  const dots=document.querySelectorAll('.dots i');if(dots[G.i])dots[G.i].classList.add('on');
+  setTimeout(()=>{if(!G||G.o!==o)return;G.i++;nextOrd()},o.ok?3200:5600);
+}
+function ordDrop(target,tile){
+  const n=+tile.dataset.n;if(!n)return;
+  if(target.classList.contains('oslot'))ordMove(n,'slot',+target.dataset.i);
+  else ordMove(n,'tray');
 }
 
 // Zuordnen: Buchstaben auf Bilder ziehen
@@ -1633,39 +1947,50 @@ function dropOn(col,tile){
   }
 }
 function colAt(x,y){const el=document.elementFromPoint(x,y);return el&&el.closest?el.closest('.mcol'):null}
-function clearOverM(){document.querySelectorAll('.mcol.over').forEach(e=>e.classList.remove('over'))}
+function slotAt(x,y){const el=document.elementFromPoint(x,y);return el&&el.closest?el.closest('.oslot'):null}
+function trayAt(x,y){const el=document.elementFromPoint(x,y);return el&&el.closest?el.closest('.otiles'):null}
+function clearOverM(){document.querySelectorAll('.mcol.over,.oslot.over,.otiles.over').forEach(e=>e.classList.remove('over'))}
 function endMDrag(){
   if(!md)return;
   if(md.ghost)md.ghost.remove();
   md.el.classList.remove('drag');clearOverM();
 }
 document.addEventListener('pointerdown',ev=>{
-  if(md||view!=='game'||!G||G.mode!=='match')return;
-  const el=ev.target.closest&&ev.target.closest('.mlet');
-  if(!el||el.classList.contains('gone'))return;
-  md={el,x:ev.clientX,y:ev.clientY,drag:false,ghost:null};
+  if(md||view!=='game'||!G)return;
+  const sel=G.mode==='match'?'.mlet':G.mode==='ord'?'.otile':null;
+  if(!sel)return;
+  if(G.mode==='ord'&&(!G.o||G.o.done))return;
+  const el=ev.target.closest&&ev.target.closest(sel);
+  if(!el||el.classList.contains('gone')||el.classList.contains('static'))return;
+  md={el,x:ev.clientX,y:ev.clientY,drag:false,ghost:null,kind:G.mode};
 });
 document.addEventListener('pointermove',ev=>{
   if(!md)return;
   if(!md.drag){
     if(Math.hypot(ev.clientX-md.x,ev.clientY-md.y)<8)return;
     const r=md.el.getBoundingClientRect(),g=document.createElement('div');
-    g.className='blk c0 mghost';g.textContent=md.el.dataset.l;
+    g.className=(md.kind==='ord'?'blk c2':'blk c0')+' mghost';g.textContent=md.el.dataset.l||md.el.dataset.n;
     g.style.width=r.width+'px';g.style.height=r.height+'px';g.style.fontSize=getComputedStyle(md.el).fontSize;
     document.body.appendChild(g);md.ghost=g;md.drag=true;md.el.classList.add('drag');
   }
   md.ghost.style.left=ev.clientX+'px';md.ghost.style.top=ev.clientY+'px';
   clearOverM();
-  const c=colAt(ev.clientX,ev.clientY);
-  if(c&&!G.m.done.has(c.dataset.t))c.classList.add('over');
+  if(md.kind==='ord'){
+    const s=slotAt(ev.clientX,ev.clientY);
+    if(s)s.classList.add('over');
+    else if(md.el.classList.contains('inslot')){const t=trayAt(ev.clientX,ev.clientY);if(t)t.classList.add('over')}
+  }else{
+    const c=colAt(ev.clientX,ev.clientY);
+    if(c&&!G.m.done.has(c.dataset.t))c.classList.add('over');
+  }
 });
 document.addEventListener('pointerup',ev=>{
   if(!md)return;
   const d=md;
   if(!d.drag){md=null;return}
   endMDrag();md=null;noTap=Date.now()+350;
-  const c=colAt(ev.clientX,ev.clientY);
-  if(c)dropOn(c,d.el);
+  if(d.kind==='ord'){const s=slotAt(ev.clientX,ev.clientY)||trayAt(ev.clientX,ev.clientY);if(s)ordDrop(s,d.el)}
+  else{const c=colAt(ev.clientX,ev.clientY);if(c)dropOn(c,d.el)}
 });
 document.addEventListener('pointercancel',()=>{if(md){endMDrag();md=null}});
 
@@ -1709,17 +2034,25 @@ function numOverview(){
   const lv={sicher:[],normal:[],oft:[],neu:[]};
   nAvail().forEach(k=>lv[nLevel(k)].push(k));
   const f=a=>a.length?a.join(' '):'–';
-  return `<b>Sicher:</b> ${f(lv.sicher)}<br><b>Normal:</b> ${f(lv.normal)}<br><b>Oft üben:</b> ${f(lv.oft)}<br><b>Noch neu:</b> ${f(lv.neu)}<br><b>11 bis 20:</b> ${S.nhi?'dabei':'noch nicht dabei'}`;
+  return `<span class="pg"><b>Hören</b> · Zahlen bis ${nHearMax()}</span>
+  <span class="pl"><b>Sicher:</b> ${f(lv.sicher)}</span><span class="pl"><b>Normal:</b> ${f(lv.normal)}</span><span class="pl"><b>Oft üben:</b> ${f(lv.oft)}</span><span class="pl"><b>Noch neu:</b> ${f(lv.neu)}</span>
+  <span class="pg"><b>Sortieren</b> · Zahlen bis ${OMAX[S.olv]}</span>
+  <span class="pg"><b>Würfeln</b> · ${S.dlv} ${S.dlv===1?'Würfel':'Würfel'}</span>
+  <span class="pg"><b>Zahlenreihe</b> · ${RSTAGE[S.rlv]}</span>`;
 }
 function backupCode(){try{return btoa(unescape(encodeURIComponent(JSON.stringify(S))))}catch(e){return ''}}
 let ptab=null;   // gewählter Tab im Elternbereich: letters oder numbers (zuletzt geöffnete Welt)
 function ptabBody(t){
   if(t==='numbers')return `<p class="pstat">${numOverview()}</p>
-  ${S.nhi?'':'<div class="row"><button class="sbtn alt" data-a="unlockHigh">11 bis 20 jetzt dazunehmen</button></div>'}
-  <details><summary>Details</summary><p>Jede Zahl kommt zuerst gleich oft dran. Danach kommen Zahlen, die in den letzten 10 Antworten zu 80 % und mehr stimmten, seltener, und Zahlen unter 40 % öfter. Die Zahlen 11 bis 20 kommen dazu, sobald 1 bis 10 sitzen. Eine Belohnung gibt es noch nicht.</p></details>
+  <details><summary>Details</summary>
+  <p><b>Hören:</b> Zahlen bis 9. Jede Zahl kommt zuerst gleich oft dran, danach seltener, wenn sie in den letzten 10 Antworten zu 80 % und mehr stimmte, und öfter bei unter 40 %. Bis 20 geht es, wenn alle genug dran waren und von den letzten 10 Antworten 8 stimmten.</p>
+  <p><b>Sortieren:</b> Zahlen bis 9, dann bis 14, dann bis 20, jeweils wenn von den letzten 10 Durchgängen 8 stimmten.</p>
+  <p><b>Würfeln:</b> 1, dann 2, dann 3 Würfel, jeweils nach mindestens 20 Würfen und wenn von den letzten 10 Antworten 8 stimmten.</p>
+  <p><b>Zahlenreihe:</b> Zahlen bis 9, dann bis 20, rückwärts und in 2er-Schritten, jeweils wenn von den letzten 10 Antworten 8 stimmten. Frühere Arten kommen dazwischen weiter vor.</p>
+  <p>Alles schaltet sich nur durch das Spielen frei. Eine Belohnung gibt es noch nicht.</p>
+  </details>
   <div class="row"><button class="sbtn danger" data-a="resetN">Zahlen zurücksetzen</button></div>`;
   return `<p class="pstat"><b>${nDone()}</b> von 26 Stickern<br><b>${Math.min(S.pz.a,ANIMALS.length)}</b> von ${ANIMALS.length} Tieren im Zoo</p>
-  <label class="check"><input type="checkbox" id="pZimg" ${S.zimg?'checked':''}> Im Zoo die Bilder statt Emoji zeigen</label>
   <details><summary>Details</summary><p>${boxOverview()}</p><p>Ein Buchstabe steigt eine Box auf, wenn er richtig getippt wird, und fällt bei einem Fehler zurück. Je höher die Box, desto seltener kommt er dran. Den Sticker gibt es ab Box 3. Pro richtige Antwort beim ersten Versuch deckt sich ein Teil des Tierbildes auf, was nicht klappt, kommt am Ende nochmals.</p></details>
   <div class="row"><button class="sbtn danger" data-a="resetL">Buchstaben zurücksetzen</button></div>`;
 }
@@ -1763,11 +2096,11 @@ function drawParent(){
 }
 // Zurücksetzen je Bereich. Der Zähler springt nach vorn, damit der Neustart als neuester Stand gilt und andere Geräte ihn übernehmen.
 function resetLetters(){
-  S={name:S.name,pz:{a:0,m:0},sound:S.sound,rate:S.rate,voiceName:S.voiceName,zimg:S.zimg,ok:{},t:(S.t||0)+1000,nh:S.nh,nhi:S.nhi,nt:S.nt};
+  S={name:S.name,pz:{a:0,m:0},sound:S.sound,rate:S.rate,voiceName:S.voiceName,ok:{},t:(S.t||0)+1000,nh:S.nh,nhi:S.nhi,hh:S.hh,nt:S.nt,dh:S.dh,dc:S.dc,dlv:S.dlv,oh:S.oh,olv:S.olv,rh:S.rh,rlv:S.rlv};
   ensureLeitner();persist();C.dirty=true;pushNow();
 }
 function resetNumbers(){
-  S.nh={};S.nhi=false;S.nt=(S.nt||0)+1000;
+  S.nh={};S.nhi=false;S.hh='';S.dh={};S.dc={};S.dlv=1;S.oh={};S.olv=1;S.rh={};S.rlv=1;S.nt=(S.nt||0)+1000;
   persist();C.dirty=true;pushNow();
 }
 function importCode(){
@@ -1796,7 +2129,6 @@ document.addEventListener('click',ev=>{
     case 'home':if('speechSynthesis' in window)speechSynthesis.cancel();G=null;go('home');break;
     case 'menu':if('speechSynthesis' in window)speechSynthesis.cancel();G=null;go(world==='numbers'?'numbers':'letters');break;
     case 'world':world=t.dataset.w==='numbers'?'numbers':'letters';go(world);break;
-    case 'unlockHigh':S.nhi=true;persist();drawParent();toast('Die Zahlen 11 bis 20 sind jetzt dabei');break;
     case 'zoo':world='letters';go('zoo');break;
     case 'zoomove':if(G&&G.newAnimal!==undefined)enterZoo(G.newAnimal);break;
     case 'zt':{const an=ANIMALS[+t.dataset.i];if(an&&!ZMOVE){speak(an.n);const z=t.querySelector('.zi');if(z){z.classList.remove('jump');void z.offsetWidth;z.classList.add('jump')}}break}
@@ -1810,14 +2142,21 @@ document.addEventListener('click',ev=>{
     case 'play-hear':startGame('hear');break;
     case 'play-pic':startGame('pic');break;
     case 'play-match':startGame('match');break;
-    case 'play-qty':startGame('qty');break;
+    case 'play-nhear':startGame('nhear');break;
     case 'play-ord':startGame('ord');break;
-    case 'qo':countTap(t);break;
-    case 'otap':ordTap(t);break;
+    case 'play-rrow':startGame('rrow');break;
+    case 'rpick':rPick(t);break;
+    case 'rnum':{const n=+t.dataset.n;if(n)speak(NW[n-1]);break}
+    case 'otile':{const n=+t.dataset.n;if(n)speak(NW[n-1]);break}
     case 'mpic':{const it=G&&G.m&&G.m.items.find(x=>x.l===t.closest('.mcol').dataset.t);if(it)speak(it.word.w);break}
-    case 'again-round':startGame(G.mode);break;
+    case 'again-round':startGame(G.mode,G.lv);break;
     case 'again':promptQ();break;
-    case 'pick':if(G&&G.mode==='qty')pickN(t);else pick(t);break;
+    case 'pick':if(G&&G.mode==='nhear')pickNH(t);else if(G&&G.mode==='dice')pickD(t);else pick(t);break;
+    case 'play-dice':world='numbers';go('dice');break;
+    case 'dice-play':startGame('dice',+t.dataset.lv||1);break;
+    case 'dmenu':if('speechSynthesis' in window)speechSynthesis.cancel();G=null;go('dice');break;
+    case 'dlock':{t.classList.remove('shake');void t.offsetWidth;t.classList.add('shake');const lv=+t.dataset.lv;speak('Noch gesperrt. Übe zuerst mit weniger Würfeln.');toast(`Zuerst mit ${lv-1} ${lv-1===1?'Würfel':'Würfeln'} üben: 8 von 10 richtig schaltet frei (mindestens ${DMIN} Würfe)`,3500);break}
+    case 'droll':diceTap();break;
     case 'card':openCard(t.dataset.l);break;
     case 'say':speakCard();break;
     case 'nextword':nextWord();break;
@@ -1853,7 +2192,6 @@ document.addEventListener('input',ev=>{
 document.addEventListener('change',ev=>{
   if(ev.target.id==='pVoice'){S.voiceName=ev.target.value;persist();pickVoice();speak('Ämm wie Maus')}
   if(ev.target.id==='pRate'){S.rate=parseFloat(ev.target.value)||.85;persist();speak('Ämm wie Maus')}
-  if(ev.target.id==='pZimg'){S.zimg=ev.target.checked;persist()}
   if(ev.target.id==='pSound'){S.sound=ev.target.checked;persist();if(!S.sound&&'speechSynthesis' in window)speechSynthesis.cancel()}
 });
 

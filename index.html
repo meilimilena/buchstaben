@@ -397,21 +397,21 @@ div.zan{cursor:default}
 /* Silben-Bonus: eigenes Aussehen, Lautsprecher in der Mitte, vier runde Silben ringsum, bunter Hintergrund */
 body.sylbg{background-color:#FFF3D9;background-image:radial-gradient(circle at 12% 10%,#FFC9DD 0,rgba(255,201,221,0) 36%),radial-gradient(circle at 92% 18%,#BFE0FF 0,rgba(191,224,255,0) 38%),radial-gradient(circle at 8% 70%,#C9F2DD 0,rgba(201,242,221,0) 38%),radial-gradient(circle at 94% 86%,#FFE08A 0,rgba(255,224,138,0) 40%),radial-gradient(circle at 50% 100%,#E0CCFF 0,rgba(224,204,255,0) 36%);background-size:auto}
 .sywrap{flex:1;display:flex;align-items:center;justify-content:center;padding:6px 0 28px}
-.sybub{display:inline-grid;place-items:center;min-width:42px;height:42px;padding:0 9px;border-radius:30px;border:3px solid #fff;background:#E6E9F7;color:#9AA3C7;font-family:inherit;font-weight:900;font-size:15px;transition:transform .2s;letter-spacing:.02em;line-height:1;cursor:pointer;box-shadow:inset 0 0 0 2px #D5DAF0}
-.sybub.part{min-width:48px;height:48px;font-size:17px;background:#fff;color:var(--bc);box-shadow:inset 0 0 0 3px var(--bc)}
-.sybub.on{min-width:58px;height:58px;font-size:21px;transform:rotate(var(--tilt,0deg));background-color:var(--bc);background-image:radial-gradient(circle at 30% 22%,rgba(255,255,255,.5) 0,rgba(255,255,255,0) 55%);color:var(--bf,#fff);box-shadow:0 4px 0 rgba(11,27,77,.22),0 8px 14px rgba(11,27,77,.12)}
+.sybub{display:inline-grid;place-items:center;min-width:42px;height:42px;padding:0 9px;border-radius:30px;border:3px solid #fff;background:#E6E9F7;color:#9AA3C7;font-family:inherit;font-weight:900;font-size:15px;letter-spacing:.02em;line-height:1;box-shadow:inset 0 0 0 2px #D5DAF0}
+.sybub.on{min-width:48px;height:48px;font-size:17px;font-weight:800;background:#fff;color:var(--bc);box-shadow:inset 0 0 0 3px var(--bc);transform:rotate(var(--tilt,0deg))}
+.syit{display:inline-flex;flex-direction:column;align-items:center;gap:1px;padding:0;border:0;background:none;font-family:inherit;cursor:pointer}
+.sys{min-height:15px;font-size:12px;line-height:15px;letter-spacing:1px;color:#FFB400;text-shadow:0 1px 0 rgba(120,80,0,.35)}
 .syposter{padding:0 2px 34px}
 .sypn{margin:4px 2px 0;font-size:15px;font-weight:700;color:var(--muted)}
 .sypt{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:22px 2px 8px;font-size:19px;color:var(--ink)}
 .sypt small{font-size:14px;font-weight:700;color:var(--muted)}
-.sypg{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.sypg{display:flex;flex-wrap:wrap;gap:6px 6px;align-items:flex-start}
 .sypost{display:block;width:100%;margin:0 0 10px;padding:12px 14px 14px;border:4px solid transparent;border-radius:22px;text-align:left;font-family:inherit;color:var(--ink);cursor:pointer;background:linear-gradient(#fff,#fff) padding-box,linear-gradient(90deg,#FFB400,#E8556D,#8E5CF7,#2653E0) border-box;box-shadow:0 5px 0 rgba(11,27,77,.14)}
 .sypost:active{transform:translateY(3px);box-shadow:0 2px 0 rgba(11,27,77,.14)}
 .sypost-b{display:flex;gap:6px;align-items:center;margin:0 0 6px;padding:3px 2px 7px;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,#000 88%,rgba(0,0,0,0));mask-image:linear-gradient(90deg,#000 88%,rgba(0,0,0,0))}   /* lange Wörter blenden am Rand aus */
 .sypost-b .sybub{flex:0 0 auto}
 .sypost .sybub{min-width:36px;height:36px;padding:0 6px;font-size:14px}
-.sypost .sybub.on{min-width:44px;height:44px;font-size:17px}
-.sypost .sybub.part{min-width:40px;height:40px;font-size:15px}
+.sypost .sybub.on{min-width:44px;height:44px;font-size:16px}
 .sypost-t{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:2px 10px}
 .sypost-t b{font-size:20px}
 .sypost-t small{font-size:14px;font-weight:700;color:var(--muted)}
@@ -426,17 +426,18 @@ body.sylbg{background-color:#FFF3D9;background-image:radial-gradient(circle at 1
 .synew .sypg{justify-content:center;margin-top:8px}
 .syearn{position:fixed;left:50%;top:86px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:10px;padding:10px 16px;border:3px solid var(--a500);border-radius:20px;background:#fff;font-weight:800;box-shadow:0 8px 20px rgba(11,27,77,.22);animation:earnin .4s}
 @keyframes earnin{from{transform:translate(-50%,-30px);opacity:0}to{transform:translate(-50%,0);opacity:1}}
-.syfw{position:relative;height:98px;margin:0 0 4px;border-radius:20px;overflow:hidden;background:linear-gradient(#0B1B4D,#2B3F9E);box-shadow:0 5px 0 #08123A}
+.syfw{position:relative;height:98px;margin:0 0 4px;border-radius:20px;overflow:hidden;isolation:isolate;background:linear-gradient(#0B1B4D,#2B3F9E);box-shadow:0 5px 0 #08123A}
 .sstar{position:absolute;border-radius:50%;background:#fff;opacity:.9;animation:twinkle 2.2s ease-in-out infinite}
 @keyframes twinkle{0%,100%{opacity:.25}50%{opacity:1}}
 .symoon{position:absolute;right:6%;top:9%;width:19px;height:19px;border-radius:50%;box-shadow:inset -5px -2px 0 0 #FFE9A8}
 .syhill{position:absolute;left:0;bottom:0;width:100%;height:100%;fill:#101846}
-.syslot{position:absolute;width:9%;max-width:26px;opacity:.2;filter:grayscale(1);transform:translateX(-50%) rotate(var(--rot,0deg)) scale(var(--sc,1));transform-origin:50% 100%}
+.syslot{position:absolute;width:9%;max-width:26px;opacity:.35;transform:translateX(-50%) rotate(var(--rot,0deg)) scale(var(--sc,1));transform-origin:50% 100%}
 .syslot svg{display:block;width:100%;height:auto}
-.syslot.on{opacity:1;filter:none}
+.syslot:not(.on){--rf:#8C96C6}
+.syslot.on{opacity:1}
 .syslot.pop{animation:rkpop .5s}
 @keyframes rkpop{0%{transform:translateX(-50%) rotate(var(--rot,0deg)) scale(calc(var(--sc,1)*.2))}70%{transform:translateX(-50%) rotate(var(--rot,0deg)) scale(calc(var(--sc,1)*1.3))}100%{transform:translateX(-50%) rotate(var(--rot,0deg)) scale(var(--sc,1))}}
-.sk{position:absolute;width:7px;height:7px;background:var(--rc);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);opacity:0}
+.sk{position:absolute;width:7px;height:7px;opacity:0}
 .syslot.on .sk{opacity:1;animation:twinkle 1.6s ease-in-out infinite}
 .sk.a{left:-70%;top:8%}
 .sk.b{right:-80%;top:34%;animation-delay:.5s}
@@ -447,6 +448,14 @@ body.sylbg{background-color:#FFF3D9;background-image:radial-gradient(circle at 1
 .syfw.big .symoon{width:26px;height:26px;box-shadow:inset -7px -3px 0 0 #FFE9A8}
 .syslot.go{animation:rkgo .85s ease-in forwards}
 @keyframes rkgo{0%{transform:translateX(-50%) rotate(var(--rot,0deg)) scale(var(--sc,1))}100%{transform:translateX(-50%) rotate(var(--rot,0deg)) translateY(-100px) scale(var(--sc,1));opacity:0}}
+.fwb{position:fixed;z-index:30;width:0;height:0;pointer-events:none}
+.fwr{position:absolute;left:-30px;top:-30px;width:60px;height:60px;overflow:visible;animation:fwr .8s ease-out forwards}
+.fwr line{stroke:var(--fc);stroke-width:2.6;stroke-linecap:round}
+.fwr circle{fill:var(--fc)}
+@keyframes fwr{0%{transform:scale(.2);opacity:1}70%{opacity:1}100%{transform:scale(1.7);opacity:0}}
+.fwp{position:absolute;left:0;top:0;width:var(--s,7px);height:var(--s,7px);margin:-3px;border-radius:50%;background:var(--fc);animation:fwp .9s ease-out forwards}
+.fwp.w{background:#FFE08A}
+@keyframes fwp{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(.3);opacity:0}}
 .sycl{position:relative;width:min(92vw,380px);aspect-ratio:1}
 .sybtn{position:absolute;width:48%;aspect-ratio:1;border:6px solid #fff;border-radius:50%;display:grid;place-items:center;padding:0;font-family:inherit;font-weight:900;letter-spacing:.02em;line-height:1;cursor:pointer;background:var(--bg);color:var(--fg);box-shadow:0 7px 0 var(--shade),0 12px 18px rgba(11,27,77,.18)}
 .sybtn:active{transform:translateY(4px);box-shadow:0 3px 0 var(--shade)}
@@ -496,7 +505,7 @@ body.sylbg{background-color:#FFF3D9;background-image:radial-gradient(circle at 1
 (function(){
 'use strict';
 const OPERATOR='Milena Meili';
-const KEY='buchstaben-v1', VERSION='2.21.0 · 11.10.2026';
+const KEY='buchstaben-v1', VERSION='2.22.0 · 11.10.2026';
 
 // Wörter pro Buchstabe: [Wort, Bild, optional Foto-Datei]
 const ICON_URI='data:image/png;base64,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';
@@ -621,14 +630,14 @@ function adopt(d){
     [1,2,3].forEach(k=>{if(nm['d'+k])S.dh[k]=hist(nm['d'+k]);if(+nm['c'+k]>0)S.dc[k]=+nm['c'+k]});
     S.dlv=Math.min(3,Math.max(1,+nm.dl||1));
   }
-  if(nm.yg){   // Silben-Bonus: Schritt|Verlauf1|Verlauf2|Verlauf3|Verlauf4|Antworten1|Antworten2|Antworten3|Antworten4|(leer, in 2.15 die Auswahl)|gross|farbig mit Serie
+  if(nm.yg){   // Silben-Bonus: Schritt|Verlauf1|Verlauf2|Verlauf3|Verlauf4|Antworten1|Antworten2|Antworten3|Antworten4|(leer, in 2.15 die Auswahl)|drei Sterne|ein oder zwei Sterne
     const p=String(nm.yg).split('|');
     S.yl=Math.min(4,Math.max(1,+p[0]||1));
     [1,2,3,4].forEach(k=>{const h=hist(p[k]);if(h)S.yh[k]=h;const c=+p[4+k];if(c>0)S.yc[k]=c});
-    // Poster: Feld 10 = grosse Einträge (durch Komma), Feld 11 = farbige Einträge mit ihrer Serie (KEY:0, KEY:1 oder KEY:2). Feld 9 (aus 2.15) wird ignoriert.
+    // Poster: Feld 10 = farbige Einträge mit drei Sternen (durch Komma), Feld 11 = Einträge mit ein oder zwei Sternen (KEY:1 oder KEY:2; KEY:0 aus 2.21 zählt als ein Stern). Feld 9 (aus 2.15) wird ignoriert.
     const okk=syAllKeys();
     String(p[10]||'').split(',').forEach(k=>{if(okk.has(k))S.ye[k]=1});
-    String(p[11]||'').split(',').forEach(x=>{const m=/^([A-Z]{2,6}):([012])$/.exec(x);if(m&&okk.has(m[1])&&!S.ye[m[1]])S.yt[m[1]]=+m[2]});
+    String(p[11]||'').split(',').forEach(x=>{const m=/^([A-Z]{2,6}):([012])$/.exec(x);if(m&&okk.has(m[1])&&!S.ye[m[1]])S.yt[m[1]]=Math.max(1,+m[2])});
   }
   if(nm.rg){   // Zahlenreihe: Stufe|Verlauf1|Verlauf2|Verlauf3|Verlauf4
     const p=String(nm.rg).split('|');
@@ -965,7 +974,7 @@ const NN=20,NUMBERS=Array.from({length:NN},(_,i)=>i+1),NMIN=6;
 const NW=['eins','zwei','drei','vier','fünf','sechs','sieben','acht','neun','zehn','elf','zwölf','dreizehn','vierzehn','fünfzehn','sechzehn','siebzehn','achtzehn','neunzehn','zwanzig'];   // so spricht die App (nie die Ziffer)
 function ensureNums(){
   S.nh=S.nh||{};S.nt=S.nt||0;S.nhi=!!S.nhi;S.hh=typeof S.hh==='string'?S.hh:'';   // nhi: Hören geht bis 20 (sonst bis 9), hh: die letzten 10 Antworten beim Hören
-  S.yh=S.yh||{};S.yc=S.yc||{};delete S.sx;S.ye=S.ye||{};S.yt=S.yt||{};S.yl=Math.min(4,Math.max(1,+S.yl||1));   // Silben-Bonus: letzte Antworten und Anzahl je Schritt, aktueller Schritt (1 leichte Konsonanten, 2 alle, 3 drei Buchstaben, 4 zwei Silben)
+  S.yh=S.yh||{};S.yc=S.yc||{};delete S.sx;S.ye=S.ye||{};S.yt=S.yt||{};Object.keys(S.yt).forEach(k=>{if(!(S.yt[k]>=1))S.yt[k]=1});S.yl=Math.min(4,Math.max(1,+S.yl||1));   // Silben-Bonus: letzte Antworten und Anzahl je Schritt, aktueller Schritt (1 leichte Konsonanten, 2 alle, 3 drei Buchstaben, 4 zwei Silben)
   S.rh=S.rh||{};S.rlv=Math.min(4,Math.max(1,+S.rlv||1));   // Zahlenreihe: letzte Antworten je Stufe, Stufe (1 bis 9, 2 bis 20, 3 rückwärts, 4 in 2er-Schritten)
   S.oh=S.oh||{};S.olv=Math.min(3,Math.max(1,+S.olv||1));   // Sortieren: letzte Durchgänge je Stufe, Stufe (1: bis 9, 2: bis 14, 3: bis 20)
   S.dh=S.dh||{};S.dc=S.dc||{};S.dlv=Math.min(3,Math.max(1,+S.dlv||1));   // Würfeln: letzte Antworten je Stufe, freigeschaltete Stufe (1 bis 3 Würfel)
@@ -1586,7 +1595,7 @@ function resultNumHtml(){
   return `<div class="result">${gearBtn().replace('class="gear"','class="gear rgear"')}<h2>${msg}</h2>${G.mode==='syl'?syFwHtml(true):`<div class="rbig">${G.unlocked?'🔓':'👏'}</div>`}
   ${note?`<p class="sub"><b>${note}</b></p>`:''}
   <p class="sub${note?' sm':''}">${r} von ${G.max} gleich beim ersten Mal richtig</p>
-  ${G.mode==='syl'&&G.newPoster&&G.newPoster.length?`<div class="synew"><b>Neu auf dem Poster:</b><div class="sypg">${G.newPoster.map(k=>{const i=syInfo(k);return `<span class="sybub ${S.ye[k]?'on':'part'}" style="${syBubStyle(i?i.col:'#2653E0')}">${i?i.t:k}</span>`}).join('')}</div></div>`:''}
+  ${G.mode==='syl'&&G.newPoster&&G.newPoster.length?`<div class="synew"><b>Neue Sterne:</b><div class="sypg">${G.newPoster.map(k=>{const i=syInfo(k);return i?syItemHtml(i,false):''}).join('')}</div></div>`:''}
   <div class="actions">
     ${G.mode==='syl'?'<button class="blk c1 full" data-a="syposter">🖼️ Mein Poster</button>':''}
     ${G.unlocked&&dice?`<button class="blk c2 full" data-a="dice-play" data-lv="${G.unlocked}">🎲 ${G.unlocked} Würfel</button>`:''}
@@ -1910,7 +1919,7 @@ function yRecord(step,ok){
 }
 // Fest aussortierte Silben (Milena nach der Hörprobe): kommen im Spiel weder als Aufgabe noch als falsche Antwort vor. Betrifft die erzeugten Silben mit zwei Buchstaben;
 // aus den Wortlisten SY3 und SY4 sind die aussortierten Einträge gestrichen (3 Buchstaben: NIE, RAT, SIE, LIN, HAL; 2 Silben: KATZE, MUSIK, OMA, OPA, NADEL, GABEL, HALLO).
-const SY_OUT=['HI','JI','JO','JU','AL','AD','AT','AG','AP','EL','ES','EN','ER','ED','ET','EK','EG','ID','IK','IG','OK','US','UN','UK','UP','NA','NE','UR','OR'];   // die letzten vier (NA, NE, UR, OR): hört man zu wenig gut
+const SY_OUT=['HI','JI','JO','JU','AL','AD','AT','AG','AP','EL','ES','EN','ER','ED','ET','EK','EG','ID','IK','IG','OK','US','UN','UK','UP','NA','NE','UR','OR','UG','OD','UT'];   // NA, NE, UR, OR: hört man zu wenig gut; UG (wie OG), OD und UT (wie OT): zu ähnlich
 const syGone=k=>SY_OUT.indexOf(k)>=0;
 const syScore=(a,b)=>(a[0]===b[0]?2:0)+(a[a.length-1]===b[b.length-1]?2:0)+(a.length===b.length?1:0)+(a[1]===b[1]?.5:0);
 // Die Handy-Stimme spricht O und U sowie M und N fast gleich. Zwei Möglichkeiten, die sich nur durch solche Buchstaben unterscheiden (ON und UN, AM und AN, MU und NO),
@@ -1925,6 +1934,10 @@ function syConf(a,b){
   }
   return true;
 }
+// Diese Konsonanten klingen so ähnlich, dass sie bei den Silben mit zwei Buchstaben nie in derselben Frage vorkommen, auch nicht mit verschiedenen Vokalen:
+// B und P, S und Z, D und T. Einzeln bleiben alle im Spiel.
+const SY_EXCL=[['B','P'],['S','Z'],['D','T']];
+function syExcl(a,b,vc){const ca=vc?a[1]:a[0],cb=vc?b[1]:b[0];return SY_EXCL.some(p=>(p[0]===ca&&p[1]===cb)||(p[1]===ca&&p[0]===cb))}
 const syKey=x=>Array.isArray(x)?x.join(''):x;
 // aus der Reihenfolge order bis zu need Möglichkeiten wählen, die weder zu t noch untereinander verwechselbar sind
 function syPick(t,order,need){
@@ -1971,20 +1984,22 @@ function syl2(step,respect,q){
   const vOpts=shuffle(SY_V.filter(x=>x!==v)).map(x=>mk(x,c)).filter(ok);   // anderer Vokal
   const sim=shuffle((SY_SIM[c]||[]).filter(x=>pool.indexOf(x)>=0)),rest=shuffle(pool.filter(x=>x!==c&&sim.indexOf(x)<0));
   const cOpts=sim.concat(rest).map(x=>mk(v,x)).filter(ok);   // anderer Konsonant, ähnlich klingende zuerst
-  const mode=Math.floor(Math.random()*3);   // 0 nur andere Vokale, 1 nur andere Konsonanten, 2 gemischt (zwei von der einen, eine von der anderen Art)
-  const mixV=Math.random()<.5;
-  const pref=mode===0?vOpts:mode===1?cOpts:(mixV?vOpts.slice(0,2).concat(cOpts.slice(0,1)):vOpts.slice(0,1).concat(cOpts.slice(0,2)));
-  const nearOrder=pref.concat(vOpts.concat(cOpts).filter(x=>pref.indexOf(x)<0));   // ähnliche: nur ein Buchstabe anders, bevorzugte Art zuerst
-  // Am Anfang von Stufe 1 sind die falschen Antworten deutlich anders (beide Buchstaben anders), damit es leichter ist. Mit dem Fortschritt q werden es immer mehr ähnliche:
-  // bis q = 0,2 alle weit entfernt, bei q = 0,5 etwa die Hälfte, ab q = 0,8 alle ähnlich.
+  // Typen der drei falschen Antworten: V = anderer Vokal (gleicher Konsonant), C = anderer Konsonant (gleicher Vokal), F = weit weg (beide Buchstaben anders).
+  // Nie alle vier vom selben Typ (zum Beispiel alle mit S am Anfang, dann müsste das Kind nur den zweiten Buchstaben unterscheiden): Bei zwei oder drei ähnlichen
+  // kommt immer sowohl V als auch C vor. Am Anfang von Stufe 1 überwiegt F (leichter), mit dem Fortschritt q nimmt F ab, bleibt aber immer bei mindestens einem Viertel.
   const far=[];
   pool.filter(x=>x!==c).forEach(c2=>SY_V.filter(x=>x!==v).forEach(v2=>{const x=mk(v2,c2);if(ok(x))far.push(x)}));
   shuffle(far);
-  const pFar=Math.max(0,Math.min(1,(0.8-(q===undefined?1:q))/0.6));
-  const d=[],fits=x=>d.indexOf(x)<0&&!syConf(t,x)&&!d.some(y=>syConf(y,x));   // ohne O/U- und M/N-Verwechslungen
-  for(let i=0;i<3;i++){const x=(Math.random()<pFar?far:nearOrder).find(fits);if(x)d.push(x)}
-  for(const x of (pFar>0?nearOrder.concat(far):nearOrder)){if(d.length>=3)break;if(fits(x))d.push(x)}   // später nur ähnliche auffüllen, sonst wird eine andere Aufgabe gewählt
+  const pFar=Math.max(.25,Math.min(1,(0.8-(q===undefined?1:q))/0.6));
+  const isF=[0,1,2].map(()=>Math.random()<pFar),nN=isF.filter(x=>!x).length;
+  const nearT=nN===1?[Math.random()<.5?'V':'C']:nN===2?shuffle(['V','C']):nN===3?shuffle(['V','C',Math.random()<.5?'V':'C']):[];
+  const types=isF.map(f=>f?'F':nearT.shift());
+  const d=[],fits=x=>d.indexOf(x)<0&&!syConf(t,x)&&!d.some(y=>syConf(y,x))&&!syExcl(t,x,vc)&&!d.some(y=>syExcl(y,x,vc));   // ohne O/U-, M/N-Verwechslungen, ohne B/P, S/Z, D/T
+  types.forEach(tp=>{const x=(tp==='V'?vOpts:tp==='C'?cOpts:far).find(fits);if(x)d.push(x)});
+  for(const x of vOpts.concat(cOpts,far)){if(d.length>=3)break;if(fits(x))d.push(x)}   // fehlende auffüllen
   if(d.length<3)return null;
+  const all4=[t].concat(d);
+  if(respect&&(new Set(all4.map(o=>o[0])).size===1||new Set(all4.map(o=>o[1])).size===1))return null;   // nie alle vier mit demselben ersten oder zweiten Buchstaben: dann nochmal würfeln
   return {txt:t,say:sylSay(t),opts:shuffle([t].concat(d))};
 }
 function sylFs(txt){
@@ -2004,7 +2019,7 @@ function sylHtml(){
 // Poster: Ein Eintrag (Silbe oder Wort) kommt aufs Poster (S.ye), wenn er dreimal hintereinander beim ersten Versuch richtig war (S.yt = Zwischenstand 1 oder 2, ein Fehler setzt zurück).
 // Was schon drauf ist, bleibt für immer. Einträge, die noch nicht drauf sind, kommen häufiger dran (syW).
 // Serie: richtige Antworten (erster Versuch) hintereinander in einer Runde. Funken, bei 3 und 5 ein kleines Feuerwerk, bei einer perfekten Runde ein grosses.
-const SYPAL=['#2653E0','#E8556D','#0F8F87','#F59E0B','#8E5CF7','#F26B3A','#1B9AAA','#D6336C','#4C9F38','#3B82F6','#C2410C','#0EA5A4','#B45309','#7C3AED','#DB2777','#0891B2'];
+const SYPAL=['#2653E0','#E8556D','#0F8F87','#E08A00','#8E5CF7','#F26B3A','#1B9AAA','#D6336C','#4C9F38','#3B82F6','#C2410C','#0EA5A4','#B45309','#7C3AED','#DB2777','#0891B2'];
 function syPosterSections(){
   const cons=SY_C1.concat(SY_C2),vcs=SY_VC1.concat(SY_VC2),cv=[],vc=[];
   cons.forEach((c,ci)=>SY_V.forEach(v=>{const k=c+v;if(!syGone(k))cv.push({k,t:k,col:SYPAL[ci%16]})}));
@@ -2013,50 +2028,51 @@ function syPosterSections(){
   const w4=SY4.map((p,i)=>({k:p.join(''),t:p.join('·'),col:SYPAL[(p[0].charCodeAt(0)+i)%16]}));
   return [{id:'cv',title:'2 Buchstaben, Konsonant zuerst',items:cv},{id:'vc',title:'2 Buchstaben, Vokal zuerst',items:vc},{id:'w3',title:'3 Buchstaben',items:w3},{id:'w4',title:'2 Silben',items:w4}];
 }
-const syBubStyle=(col,k)=>`--bc:${col};--bf:${col==='#F59E0B'?'#0B1B4D':'#fff'}${k?`;--tilt:${((k.charCodeAt(0)*7+k.charCodeAt(k.length-1)*3)%9)-4}deg`:''}`;   // k: leichte Schräglage je Eintrag   // helle Farbe: dunkle Schrift
+const syBubStyle=(col,k)=>`--bc:${col}${k?`;--tilt:${((k.charCodeAt(0)*7+k.charCodeAt(k.length-1)*3)%9)-4}deg`:''}`;   // k: leichte Schräglage je Eintrag
+const syItemHtml=(i,btn)=>{const st=syStars(i.k),inner=`<span class="sybub${st>=3?' on':''}" style="${syBubStyle(i.col,i.k)}">${i.t}</span><span class="sys" aria-hidden="true">${'★'.repeat(st)}</span>`;return btn?`<button class="syit" data-a="sypsay" data-s="${i.k}" aria-label="${i.t.replace('·','')}, ${st} von 3 Sternen">${inner}</button>`:`<span class="syit">${inner}</span>`};   // helle Farbe: dunkle Schrift
 const syPosterItems=()=>syPosterSections().reduce((a,s)=>a.concat(s.items),[]);
 const syAllKeys=()=>new Set(syPosterItems().map(i=>i.k));
 const syInfo=k=>syPosterItems().find(i=>i.k===k);
-// have = farbige Blasen (auch die grossen), solid = nur die grossen, total = alle Einträge
-function syPosterCount(){const it=syPosterItems();return {have:it.filter(i=>syColored(i.k)).length,solid:it.filter(i=>S.ye[i.k]).length,total:it.length}}
-// Balken: kräftig = gross und glänzend, hell dahinter = farbig; zusammen so lang wie «x von N»
-const syBarHtml=c=>`<i style="width:${Math.round(c.solid/c.total*100)}%"></i>${c.have>c.solid?`<b style="width:${Math.round((c.have-c.solid)/c.total*1000)/10}%"></b>`:''}`;
-// erster Versuch einer Aufgabe; true, wenn der Eintrag jetzt neu aufs Poster kommt
-// Zustände: grau (noch nie richtig), farbig mit Rand (einmal richtig gewusst, bleibt für immer; S.yt = Serie 0 bis 2), gross und glänzend (dreimal hintereinander richtig, S.ye).
-// Gibt 'new' zurück, wenn der Eintrag jetzt zum ersten Mal farbig wird, 'solid', wenn er jetzt gross wird, sonst false.
+// have = farbige Silben (drei Sterne), starsPart = Sterne der noch nicht farbigen, total = alle Einträge
+function syPosterCount(){const it=syPosterItems();return {have:it.filter(i=>syColored(i.k)).length,starsPart:it.filter(i=>!syColored(i.k)).reduce((a,i)=>a+syStars(i.k),0),total:it.length}}
+// Balken: kräftig = farbige Silben, hell dahinter = Sterne der anderen (drei Sterne zählen wie eine farbige Silbe)
+const syBarHtml=c=>`<i style="width:${Math.round(c.have/c.total*100)}%"></i>${c.starsPart?`<b style="width:${Math.round(c.starsPart/3/c.total*1000)/10}%"></b>`:''}`;
+// Sterne: Jede richtige Antwort beim ersten Versuch gibt der Silbe einen gelben Stern (S.yt = 1 oder 2). Mit dem dritten Stern bekommt sie einen farbigen Rand mit farbigen Buchstaben (S.ye).
+// Sterne verschwinden nie: Ein Fehler ändert nichts. Gibt 'star' zurück, wenn die Silbe jetzt einen Stern mehr hat, 'solid' beim dritten (jetzt farbig), sonst false.
 function syPoster(key,ok){
-  if(S.ye[key])return false;
-  const known=S.yt[key]!==undefined;
-  if(!ok){if(known)S.yt[key]=0;return false}   // ein Fehler lässt die Blase farbig, nur die Serie beginnt von vorn
-  const n=(known?S.yt[key]:0)+1;
-  if(n>=3){delete S.yt[key];S.ye[key]=1;return 'solid'}
-  S.yt[key]=n;return known?false:'new';
+  if(S.ye[key]||!ok)return false;
+  const c=(S.yt[key]!==undefined?Math.max(1,S.yt[key]):0)+1;
+  if(c>=3){delete S.yt[key];S.ye[key]=1;return 'solid'}
+  S.yt[key]=c;return 'star';
 }
-const syColored=k=>!!S.ye[k]||S.yt[k]!==undefined;
-const syW=k=>S.ye[k]?1:(S.yt[k]===2?8:S.yt[k]===1?6:S.yt[k]===0?5:4);   // gross = 1, Serie 2 = 8, Serie 1 = 6, Serie 0 = 5, noch grau = 4
+const syStars=k=>S.ye[k]?3:(S.yt[k]!==undefined?Math.max(1,S.yt[k]):0);
+const syColored=k=>!!S.ye[k];
+const syW=k=>S.ye[k]?1:(S.yt[k]>=2?8:S.yt[k]===1?6:4);   // drei Sterne = 1, zwei = 8, einer = 6, keiner = 4: wer noch nicht fertig ist, kommt häufiger dran
 function syWPick(arr,wf){
   let tot=0;const ws=arr.map(x=>{const w=wf(x);tot+=w;return w});
   let r=Math.random()*tot;
   for(let i=0;i<arr.length;i++){r-=ws[i];if(r<=0)return arr[i]}
   return arr[arr.length-1];
 }
-function burstAt(x,y,chars,n){
-  for(let i=0;i<(n||10);i++){
-    const s=document.createElement('span');s.className='pt';s.textContent=chars[i%chars.length];
-    const a=Math.random()*6.28,d=60+Math.random()*110;
-    s.style.cssText=`left:${x}px;top:${y}px;--dx:${Math.cos(a)*d}px;--dy:${Math.sin(a)*d-30}px`;
-    document.body.appendChild(s);setTimeout(()=>s.remove(),1000);
-  }
+// Gezeichnetes Feuerwerk (kein Emoji, kein Bild): ein Strahlenstern und viele farbige Funken auf durchsichtigem Grund
+function fwBurst(x,y,col,n){
+  const b=document.createElement('div');b.className='fwb';
+  b.style.cssText=`left:${x}px;top:${y}px;--fc:${col}`;
+  let rays='';for(let k=0;k<8;k++){const a=k*Math.PI/4;rays+=`<line x1="${(Math.cos(a)*6).toFixed(1)}" y1="${(Math.sin(a)*6).toFixed(1)}" x2="${(Math.cos(a)*17).toFixed(1)}" y2="${(Math.sin(a)*17).toFixed(1)}"/>`}
+  let dots='';for(let k=0;k<(n||12);k++){const a=Math.random()*6.28,d=40+Math.random()*80;dots+=`<i class="fwp${k%3===0?' w':''}" style="--dx:${Math.cos(a)*d|0}px;--dy:${Math.sin(a)*d|0}px;--s:${5+(Math.random()*5|0)}px"></i>`}
+  b.innerHTML=`<svg class="fwr" viewBox="-20 -20 40 40" aria-hidden="true"><g>${rays}</g><circle r="2.6"/></svg>${dots}`;
+  document.body.appendChild(b);setTimeout(()=>b.remove(),1100);
 }
 function fireworks(level){   // Salven über den ganzen Bildschirm (Finale)
-  const W=window.innerWidth||390,H=window.innerHeight||700,E=['🎆','🎇','✨','⭐','🎉','💥'];
+  const W=window.innerWidth||390,H=window.innerHeight||700;
   const n=level>=3?7:level===2?3:1;
-  for(let i=0;i<n;i++)setTimeout(()=>{burstAt(W*(.15+Math.random()*.7),H*(.2+Math.random()*.45),E.slice(i%3).concat(E),14);if(i%2===0)chime()},i*260);
+  for(let i=0;i<n;i++)setTimeout(()=>{fwBurst(W*(.15+Math.random()*.7),H*(.2+Math.random()*.45),SYFWC[(i*3)%8],16);if(i%2===0)chime()},i*260);
 }
 // Feuerwerksbild: Nachthimmel mit einer Reihe Raketen. Jede richtige Antwort (erster Versuch) stellt eine Rakete mehr hin, bei einer falschen bleibt alles, wie es ist.
 // Nach der Runde gehen die Raketen los (syLaunch): eine Rakete pro richtige Antwort, bei 8 von 8 dazu ein grosses Finale.
 const SYFWC=['#E8556D','#FFB400','#2653E0','#0F8F87','#8E5CF7','#F26B3A','#1B9AAA','#D6336C'];
-const syRocket=()=>`<svg viewBox="0 0 24 56" aria-hidden="true"><rect x="10.4" y="30" width="3.2" height="25" rx="1.6" style="fill:#B08968"/><path d="M12 1 L19.5 13 L19.5 31 L4.5 31 L4.5 13 Z" style="fill:var(--rc)"/><rect x="4.5" y="22" width="15" height="4" style="fill:rgba(255,255,255,.6)"/><path d="M4.5 31 L0.5 38 L4.5 37 Z M19.5 31 L23.5 38 L19.5 37 Z" style="fill:var(--rc)"/></svg>`;
+const syRocket=()=>`<svg viewBox="0 0 24 56" aria-hidden="true"><rect x="10.4" y="30" width="3.2" height="25" rx="1.6" style="fill:#B08968"/><path d="M12 1 L19.5 13 L19.5 31 L4.5 31 L4.5 13 Z" style="fill:var(--rf,var(--rc))"/><rect x="4.5" y="22" width="15" height="4" style="fill:rgba(255,255,255,.6)"/><path d="M4.5 31 L0.5 38 L4.5 37 Z M19.5 31 L23.5 38 L19.5 37 Z" style="fill:var(--rf,var(--rc))"/></svg>`;
+const sySpark=c=>`<svg class="sk ${c}" viewBox="0 0 10 10" aria-hidden="true"><path d="M5 0 L6.3 3.7 L10 5 L6.3 6.3 L5 10 L3.7 6.3 L0 5 L3.7 3.7 Z" style="fill:var(--rc)"/></svg>`;
 // Wilde Anordnung statt einer Reihe: Jede Rakete hat ihren Platz (x in % der Breite, b = Höhe über dem Boden in % der Höhe, s = Grösse, r = Neigung in Grad).
 // Die Reihenfolge ist die Reihenfolge, in der sie dazukommen: zuerst eine in der Mitte, dann wild verteilt. Der Hügel darunter hat unter jeder Rakete eine Spitze.
 const SYPOS=[{x:50,b:8,s:1.1,r:-6},{x:13,b:18,s:.85,r:14},{x:78,b:6,s:1.05,r:-16},{x:31,b:6,s:.95,r:8},{x:71,b:22,s:.8,r:20},{x:9,b:8,s:1,r:-12},{x:90,b:20,s:.9,r:10},{x:56,b:15,s:.72,r:-24}];
@@ -2068,7 +2084,7 @@ function syHillPath(){
 }
 function syFwHtml(big){
   const max=G?G.max:8,r=G?G.right:0;
-  const slots=Array.from({length:max},(_,i)=>{const p=SYPOS[i%SYPOS.length];return `<span class="syslot${i<r?' on':''}" style="--rc:${SYFWC[i%8]};left:${p.x}%;bottom:${p.b}%;--rot:${p.r}deg;--sc:${p.s};z-index:${Math.round(p.s*100)}">${syRocket()}<i class="sk a"></i><i class="sk b"></i><i class="sk c"></i></span>`}).join('');
+  const slots=Array.from({length:max},(_,i)=>{const p=SYPOS[i%SYPOS.length];return `<span class="syslot${i<r?' on':''}" style="--rc:${SYFWC[i%8]};left:${p.x}%;bottom:${p.b}%;--rot:${p.r}deg;--sc:${p.s};z-index:${Math.round(p.s*100)}">${syRocket()}${sySpark('a')}${sySpark('b')}${sySpark('c')}</span>`}).join('');
   const stars=SYSTARS.map((q,i)=>`<i class="sstar" style="left:${q[0]}%;top:${q[1]}%;width:${q[2]}px;height:${q[2]}px;animation-delay:${(i*.37).toFixed(2)}s"></i>`).join('');
   return `<div class="syfw${big?' big':''}" id="${big?'syfwEnd':'syfw'}"${big?' data-a="syfw"':''} aria-label="Feuerwerk">${stars}<span class="symoon"></span><svg class="syhill" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><path d="${syHillPath()}"/></svg>${slots}</div>`;
 }
@@ -2093,11 +2109,11 @@ function syLaunch(){
   const n=G.right||0,max=G.max||8;
   const slots=box.querySelectorAll?Array.from(box.querySelectorAll('.syslot')).filter(e=>e.classList.contains('on')):[];
   slots.forEach(e=>e.classList.remove('go'));
-  const r=box.getBoundingClientRect(),E=['🎆','🎇','✨','⭐','💥'];
+  const r=box.getBoundingClientRect();
   for(let i=0;i<n;i++){
     const t0=i*380;
     syFwT.push(setTimeout(()=>{if(slots[i])slots[i].classList.add('go')},t0));
-    syFwT.push(setTimeout(()=>{const q=syBurstPos(i,r,true);burstAt(q.x,q.y,[E[i%5],E[(i+2)%5],'✨'],12);if(i%2===0)chime()},t0+650));   // dort, wo die schräg fliegende Rakete ankommt
+    syFwT.push(setTimeout(()=>{const q=syBurstPos(i,r,true);fwBurst(q.x,q.y,SYFWC[i%8],12);if(i%2===0)chime()},t0+650));   // dort, wo die schräg fliegende Rakete ankommt
   }
   const end=Math.max(0,n-1)*380+700;
   if(n>=max)syFwT.push(setTimeout(()=>fireworks(3),end));   // alle richtig: grosses Finale über den ganzen Bildschirm
@@ -2106,18 +2122,18 @@ function syLaunch(){
 function syEarn(k){
   const i=syInfo(k);if(!i)return;
   const e=document.createElement('div');e.className='syearn';
-  e.innerHTML=`<span class="sybub on" style="${syBubStyle(i.col)}">${i.t}</span><span>ist jetzt ganz gross auf dem Poster!</span>`;
+  e.innerHTML=`${syItemHtml(i,false)}<span>hat jetzt drei Sterne!</span>`;
   document.body.appendChild(e);setTimeout(()=>e.remove(),2600);
 }
 function syPosterHtml(){
   const secs=syPosterSections(),c=syPosterCount();
   const body=secs.map(s=>{
     const n=s.items.filter(i=>syColored(i.k)).length;
-    return `<h3 class="sypt">${s.title}<small>${n} von ${s.items.length}</small></h3><div class="sypg">${s.items.map(i=>`<button class="sybub${S.ye[i.k]?' on':S.yt[i.k]!==undefined?' part':''}" style="${syBubStyle(i.col,i.k)}" data-a="sypsay" data-s="${i.k}" aria-label="${i.t.replace('·','')}">${i.t}</button>`).join('')}</div>`;
+    return `<h3 class="sypt">${s.title}<small>${n} von ${s.items.length}</small></h3><div class="sypg">${s.items.map(i=>syItemHtml(i,true)).join('')}</div>`;
   }).join('');
   return `<div class="top">${backBtn('smenu')}<div class="grow"><h1>Mein Poster</h1><small>${c.have} von ${c.total} gesammelt</small></div>${gearBtn()}</div>
   <div class="sypbar" aria-hidden="true">${syBarHtml(c)}</div>
-  <p class="sypn">Farbig heisst: schon richtig gewusst. Gross und glänzend heisst: dreimal hintereinander richtig. Tippen spielt sie ab.</p>
+  <p class="sypn">Für jede richtige Antwort bekommt eine Silbe einen gelben Stern. Mit drei Sternen bekommt sie einen farbigen Rand. Tippen spielt sie ab.</p>
   <div class="syposter">${body}</div>`;
 }
 function nextSY(){
@@ -2171,8 +2187,8 @@ function sylMenuHtml(){
   }).join('');
   const pc=syPosterCount();
   // Das Poster steht ganz oben, sieht aber ausdrücklich NICHT wie eine Stufe aus: weisses Banner mit Regenbogen-Rahmen und den zuletzt aufgeleuchteten Blasen
-  const lastKeys=Object.keys(S.ye||{}).concat(Object.keys(S.yt||{})).slice(-6);   // zuletzt farbig gewordene (die grossen zuerst, dann die farbigen)
-  const mini=Array.from({length:6},(_,i)=>{const k=lastKeys[i],inf=k&&syInfo(k);return inf?`<span class="sybub ${S.ye[k]?'on':'part'}" style="${syBubStyle(inf.col,k)}">${inf.t}</span>`:'<span class="sybub">·</span>'}).join('');
+  const lastKeys=Object.keys(S.ye||{}).slice(-6);   // zuletzt farbig gewordene
+  const mini=Array.from({length:6},(_,i)=>{const k=lastKeys[i],inf=k&&syInfo(k);return inf?`<span class="sybub on" style="${syBubStyle(inf.col,k)}">${inf.t}</span>`:'<span class="sybub">·</span>'}).join('');
   const poster=`<button class="sypost" data-a="syposter" aria-label="Mein Poster"><span class="sypost-b">${mini}</span><span class="sypost-t"><b>Mein Poster</b><small>${pc.have} von ${pc.total} gesammelt</small></span><span class="sypost-bar" aria-hidden="true">${syBarHtml(pc)}</span></button>`;
   return `<div class="top">${backBtn('menu')}<div class="grow"><h1>Silben</h1></div>${gearBtn()}</div>
   <div class="menu">${poster}${cards}</div>`;
@@ -2535,7 +2551,7 @@ function ptabBody(t){
   </details>
   <div class="row"><button class="sbtn danger" data-a="resetN">Zahlen zurücksetzen</button></div>`;
   return `<p class="pstat"><b>${nDone()}</b> von 26 Stickern<br><b>${zooProg().n}</b> von ${zooProg().N} Tieren im Zoo<br>Silben: ${syOpen()?`Stufe ${sySt(S.yl)}, Poster ${syPosterCount().have} von ${syPosterCount().total}`:'noch gesperrt'}</p>
-  <details><summary>Details</summary><p>${boxOverview()}</p><p><b>Silben (Bonus):</b> offen, wenn alle 26 Sticker und alle 15 Tiere da sind. Stufe 1: 2 Buchstaben (Konsonant zuerst wie MU und Vokal zuerst wie UM, zuerst leichte, dann alle Konsonanten), Stufe 2: 3 Buchstaben, Stufe 3: 2 Silben. Weiter geht es in Stufe 1 (beide Teile) nach mindestens 20 Antworten, in Stufe 2 und 3 nach mindestens 30 Antworten, jeweils mit 8 von den letzten 10. Keine Belohnung wie Zoo oder Sticker, dafür ein Poster (eine Silbe wird farbig, sobald sie einmal richtig war, und gross und glänzend nach dreimal hintereinander richtig; neue kommen häufiger dran) und ein Feuerwerk, das mit jeder richtigen Antwort um eine Rakete wächst und am Rundenende abgeht.</p><p>Ein Buchstabe steigt eine Box auf, wenn er richtig getippt wird, und fällt bei einem Fehler zurück. Je höher die Box, desto seltener kommt er dran. Den Sticker gibt es ab Box 3. Pro richtige Antwort beim ersten Versuch deckt sich ein Teil des Tierbildes auf, was nicht klappt, kommt am Ende nochmals.</p></details>
+  <details><summary>Details</summary><p>${boxOverview()}</p><p><b>Silben (Bonus):</b> offen, wenn alle 26 Sticker und alle 15 Tiere da sind. Stufe 1: 2 Buchstaben (Konsonant zuerst wie MU und Vokal zuerst wie UM, zuerst leichte, dann alle Konsonanten), Stufe 2: 3 Buchstaben, Stufe 3: 2 Silben. Weiter geht es in Stufe 1 (beide Teile) nach mindestens 20 Antworten, in Stufe 2 und 3 nach mindestens 30 Antworten, jeweils mit 8 von den letzten 10. Keine Belohnung wie Zoo oder Sticker, dafür ein Poster (jede richtige Antwort gibt der Silbe einen gelben Stern, mit drei Sternen bekommt sie einen farbigen Rand; was noch nicht fertig ist, kommt häufiger dran) und ein Feuerwerk, das mit jeder richtigen Antwort um eine Rakete wächst und am Rundenende abgeht.</p><p>Ein Buchstabe steigt eine Box auf, wenn er richtig getippt wird, und fällt bei einem Fehler zurück. Je höher die Box, desto seltener kommt er dran. Den Sticker gibt es ab Box 3. Pro richtige Antwort beim ersten Versuch deckt sich ein Teil des Tierbildes auf, was nicht klappt, kommt am Ende nochmals.</p></details>
   <div class="row"><button class="sbtn danger" data-a="resetS">Silben zurücksetzen</button></div>
   <div class="row"><button class="sbtn danger" data-a="resetL">Buchstaben zurücksetzen</button></div>`;
 }
